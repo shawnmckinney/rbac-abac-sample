@@ -1,0 +1,58 @@
+<!--
+  ~ This is free and unencumbered software released into the public domain.
+  -->
+<html>
+<head>
+    <wicket:head>
+        <title>RbacAbac Sample Project Teller's Page</title>
+    </wicket:head>
+</head>
+<body>
+<wicket:extend>
+    <h2>Sellers Menu</h2>
+
+    <form wicket:id="pageForm">
+
+        <span wicket:id="label1"></span>
+        <br>
+        <br>
+        <fieldset>
+            <legend>These buttons are allowed for 'Tellers'</legend>
+            <table id="inputFormTable">
+                <tr>
+                    <td>
+                        <input type="button"
+                               class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                               wicket:id="account.deposit" value="account.deposit" name="account.deposit"/>
+                    </td>
+                    <td>
+                        <b>Object: Account; Operation: Deposit;</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="button"
+                               class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                               wicket:id="account.withdrawal" value="account.withdrawal" name="account.withdrawal"/>
+                    </td>
+                    <td>
+                        <b>Object: Account; Operation: Withdrawal;</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="button"
+                               class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                               wicket:id="account.inquiry" value="account.inquiry" name="account.inquiry"/>
+                    </td>
+                    <td>
+                        <b>Object: Account; Operation: Inquiry;</b>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</wicket:extend>
+This is free and unencumbered software released into the public domain.
+</body>
+</html>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+<project basedir="." default="all" name="Fortress Sample Data">
+    <taskdef classname="org.apache.directory.fortress.core.ant.FortressAntTask" name="FortressAdmin">
+        <classpath path="${java.class.path}"/>
+    </taskdef>
+
+    <target name="all">
+        <FortressAdmin>
+
+            <updconfig>
+                <config props="config.realm:DEFAULT"/>
+                <config props="Role_Tellers:locale"/>
+                <config props="Role_Washers:locale"/>
+            </updconfig>
+
+            <adduser>
+                <user userId="curly"
+                      password="password"
+                      description="Head Teller of the East, Coin Washer in North and South"
+                      userProps="Role_Tellers:East$Role_Washers:North,South"
+                      cn="Curly Howrowitz"
+                      sn="Horowitz"
+                      ou="u1" />
+                <user userId="moe"
+                      password="password"
+                      description="Head Teller of the North, Coin Washer in East and South"
+                      userProps="Role_Tellers:North$Role_Washers:East,South"
+                      cn="Moe Howard"
+                      sn="Howard"
+                      ou="u1" />
+                <user userId="larry"
+                      password="password"
+                      description="Head Teller of the South, Coin Washer in North and East"
+                      userProps="Role_Tellers:South$Role_Washers:North,East"
+                      cn="Larry Fine"
+                      sn="Fine"
+                      ou="u1" />
+            </adduser>
+
+            <adduserrole>
+                <userrole userId="curly" name="Role_Users"/>
+                <userrole userId="curly" name="Role_Tellers"/>
+                <userrole userId="curly" name="Role_Washers"/>
+                <userrole userId="moe" name="Role_Users"/>
+                <userrole userId="moe" name="Role_Tellers"/>
+                <userrole userId="moe" name="Role_Washers"/>
+                <userrole userId="larry" name="Role_Users"/>
+                <userrole userId="larry" name="Role_Tellers"/>
+                <userrole userId="larry" name="Role_Washers"/>
+            </adduserrole>
+
+            <addrole>
+                <role name="Role_Users" description="Basic rights"/>
+                <role name="Role_Tellers" description="May transact on customer accounts"/>
+                <role name="Role_Washers" description="May wash currency"/>
+            </addrole>
+
+            <addsdset>
+                <sdset name="Bank" setmembers="Role_Tellers,Role_Washers" cardinality="2" setType="DYNAMIC" description="User can only be activate one role of this set"/>
+            </addsdset>
+
+            <addpermobj>
+                <permobj objName="org.rbacabac.HomePage" description="Rbac Abac Sample Home Page" ou="p1" type="Page"/>
+                <permobj objName="TellersPage" description="Used by Tellers" ou="p1" />
+                <permobj objName="WashersPage" description="Used by Washers" ou="p1" />
+                <permobj objName="Branch" description="Corresponds with a particular branch" ou="p1" />
+                <permobj objName="Account" description="Corresponds with a customer account" ou="p1" />
+                <permobj objName="Currency" description="Corresponds to currency" ou="p1" />
+            </addpermobj>
+
+            <addpermop>
+                <permop objName="org.rbacabac.HomePage" opName="switchToTeller" type="Button" description="Permission for org.rbacabac.HomePage.switchToTeller"/>
+                <permop objName="org.rbacabac.HomePage" opName="switchToWasher" type="Button" description="Permission for org.rbacabac.HomePage.switchToWasher"/>
+                <permop objName="org.rbacabac.HomePage" opName="switchRoles" type="Button" description="Permission for org.rbacabac.HomePage.switchRoles"/>
+                <permop objName="TellersPage" opName="link" />
+                <permop objName="WashersPage" opName="link" />
+                <permop objName="Account" opName="deposit" description="Deposit funds into an account"/>
+                <permop objName="Account" opName="withdrawal" description="Withdrawal funds from an account"/>
+                <permop objName="Account" opName="inquiry" description="Interrogate balance on an account"/>
+                <permop objName="Currency" opName="soak" description="Permission to soak currency"/>
+                <permop objName="Currency" opName="rinse" description="May rinse currency"/>
+                <permop objName="Currency" opName="dry" description="May dry currency"/>
+                <permop objName="Branch" opName="login" description="May dry currency"/>
+            </addpermop>
+
+            <addpermgrant>
+                <permgrant objName="org.rbacabac.HomePage" opName="switchToWasher" roleNm="Role_Tellers"/>
+                <permgrant objName="org.rbacabac.HomePage" opName="switchToTeller" roleNm="Role_Washers"/>
+                <permgrant objName="org.rbacabac.HomePage" opName="switchRoles" roleNm="Role_Tellers"/>
+                <permgrant objName="org.rbacabac.HomePage" opName="switchRoles" roleNm="Role_Washers"/>
+                <permgrant objName="WashersPage" opName="link" roleNm="Role_Washers"/>
+                <permgrant objName="TellersPage" opName="link" roleNm="Role_Tellers"/>
+                <permgrant objName="Account" opName="deposit" roleNm="Role_Tellers"/>
+                <permgrant objName="Account" opName="withdrawal" roleNm="Role_Tellers"/>
+                <permgrant objName="Account" opName="inquiry" roleNm="Role_Tellers"/>
+                <permgrant objName="Currency" opName="soak" roleNm="Role_Washers"/>
+                <permgrant objName="Currency" opName="rinse" roleNm="Role_Washers"/>
+                <permgrant objName="Currency" opName="dry" roleNm="Role_Washers"/>
+                <permgrant objName="Branch" opName="login" roleNm="Role_Users"/>
+            </addpermgrant>
+
+            <addorgunit>
+                <orgunit name="u1" typeName="USER" description="Test User Org for RbacAbac Sample"/>
+                <orgunit name="p1" typeName="PERM" description="Test Perm Org for RbacAbac Sample"/>
+            </addorgunit>
+
+        </FortressAdmin>
+    </target>
+</project>

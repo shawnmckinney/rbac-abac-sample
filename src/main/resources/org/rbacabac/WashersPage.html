@@ -1,0 +1,59 @@
+<!--
+  ~ This is free and unencumbered software released into the public domain.
+  -->
+<html>
+<head>
+    <wicket:head>
+        <title>RbacAbac Sample Project Washers Page</title>
+    </wicket:head>
+</head>
+<body>
+<wicket:extend>
+    <h2>Buyers Menu</h2>
+
+    <form wicket:id="pageForm">
+
+        <span wicket:id="label1"></span>
+        <br>
+        <br>
+        <fieldset>
+            <legend>These buttons are allowed for 'Washers'</legend>
+
+            <table id="inputFormTable">
+                <tr>
+                    <td>
+                        <input type="button"
+                               class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                               wicket:id="currency.soak" value="currency.soak" name="currency.soak"/>
+                    </td>
+                    <td>
+                        <b>Object: Currency; Operation: Soak;</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="button"
+                               class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                               wicket:id="currency.rinse" value="currency.rinse" name="currency.rinse"/>
+                    </td>
+                    <td>
+                        <b>Object: Currency; Operation: Rinse;</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="button"
+                               class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+                               wicket:id="currency.dry" value="currency.dry" name="currency.dry"/>
+                    </td>
+                    <td>
+                        <b>Object: Currency; Operation: Dry;</b>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</wicket:extend>
+This is free and unencumbered software released into the public domain.
+</body>
+</html>
