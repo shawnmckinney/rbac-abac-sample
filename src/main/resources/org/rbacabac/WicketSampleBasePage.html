@@ -27,24 +27,6 @@
 
     <form wicket:id="usersForm">
 
-        <fieldset>
-            <legend><b>Activate and Deactivate Roles in Session</b></legend>
-
-            <table id="inputFormTableActivate">
-                <tr>
-                    <td>
-                        <button wicket:id="roles.switch.washer" name="roles.switch.washer" style="width: 200px">Switch To Washer</button>
-                    </td>
-                    <td>
-                        <button wicket:id="roles.switch.teller" name="roles.switch.teller" style="width: 200px">Switch To Teller</button>
-                    </td>
-                    <td>
-                        <span wicket:id="inactivatedRoleString"></span>
-                    </td>
-                </tr>
-            </table>
-        </fieldset>
-
         <h2>Users Menu</h2>
         <fieldset>
             <legend>These buttons are allowed for all 'Users'</legend>
@@ -62,7 +44,7 @@
                     <td>
                         <input type="button"
                                class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
-                               wicket:id="branch.login" value="Login" name="branch.login"/>
+                               wicket:id="branch.login" value="Set Branch" name="branch.login"/>
                     </td>
                 </tr>
             </table>

@@ -87,9 +87,6 @@
             </addpermobj>
 
             <addpermop>
-                <permop objName="org.rbacabac.HomePage" opName="switchToTeller" type="Button" description="Permission for org.rbacabac.HomePage.switchToTeller"/>
-                <permop objName="org.rbacabac.HomePage" opName="switchToWasher" type="Button" description="Permission for org.rbacabac.HomePage.switchToWasher"/>
-                <permop objName="org.rbacabac.HomePage" opName="switchRoles" type="Button" description="Permission for org.rbacabac.HomePage.switchRoles"/>
                 <permop objName="TellersPage" opName="link" />
                 <permop objName="WashersPage" opName="link" />
                 <permop objName="Account" opName="deposit" description="Deposit funds into an account"/>
@@ -102,10 +99,6 @@
             </addpermop>
 
             <addpermgrant>
-                <permgrant objName="org.rbacabac.HomePage" opName="switchToWasher" roleNm="Role_Tellers"/>
-                <permgrant objName="org.rbacabac.HomePage" opName="switchToTeller" roleNm="Role_Washers"/>
-                <permgrant objName="org.rbacabac.HomePage" opName="switchRoles" roleNm="Role_Tellers"/>
-                <permgrant objName="org.rbacabac.HomePage" opName="switchRoles" roleNm="Role_Washers"/>
                 <permgrant objName="WashersPage" opName="link" roleNm="Role_Washers"/>
                 <permgrant objName="TellersPage" opName="link" roleNm="Role_Tellers"/>
                 <permgrant objName="Account" opName="deposit" roleNm="Role_Tellers"/>
