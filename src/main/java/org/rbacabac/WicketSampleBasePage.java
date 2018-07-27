@@ -4,7 +4,10 @@
 package org.rbacabac;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.*;
+import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.realm.*;
 import org.apache.directory.fortress.web.control.SecUtils;
 import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
@@ -24,6 +27,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.settings.ExceptionSettings;
@@ -32,6 +36,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * Base class for RbacAbac Sample Project.
@@ -110,18 +115,24 @@ public abstract class WicketSampleBasePage extends WebPage
     {
         private List<UserRole> inactiveRoles;
         private List<UserRole> activeRoles;
+        private TextField branchField;
 
         public UsersForm(String id)
         {
             super( id );
-            add ( new TextField( "customer" ) );
+            //add ( new TextField( "branch" ), Model.of( "" ) );
+            branchField = new TextField("branch", Model.of(""));
+            add(branchField);
 
             add( new FtIndicatingAjaxButton( "branch.login" )
             {
                 @Override
                 protected void onSubmit(AjaxRequestTarget target, Form form)
                 {
-                    logIt( target, "Branch, Login Pressed" );
+                    String branch = (String)branchField.getDefaultModelObject();
+                    initializeSession( this, getUserid(), branch );
+                    logIt( target, "Login to Branch: "  + branch);
+                    setResponsePage( HomePage.class );
                 }
             } );
             
@@ -334,4 +345,31 @@ public abstract class WicketSampleBasePage extends WebPage
     }
 
     protected static final Logger LOG = Logger.getLogger( WicketSampleBasePage.class.getName() );
+
+
+    public void initializeSession( Component component, String userId, String branchId )
+    {
+        synchronized ( ( WicketSession ) WicketSession.get() )
+        {
+            LOG.info( "Session user: " + userId );
+            Properties props = new Properties(  );
+            props.setProperty( "locale", branchId );
+            User user = new User(userId);
+            user.addProperties( props );
+            Session session = null;
+            try
+            {
+                session = accessMgr.createSession( user, true );
+            }
+            catch (SecurityException se)
+            {
+                throw new RuntimeException( se );
+            }
+            // Retrieve user permissions and attach RBAC session to Wicket session:
+            ( ( WicketSession ) WicketSession.get() ).setSession( session );
+            SecUtils.getPermissions( component, accessMgr );
+        }
+    }
+
+
 }
