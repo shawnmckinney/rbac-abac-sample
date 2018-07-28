@@ -17,14 +17,38 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 /**
  * This class uses apache selenium firefox driver to drive commander web ui
  */
-public class RoleSampleSeleniumITCase
+public class RbacAbacSampleSeleniumITCase
 {
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
     private StringBuffer verificationErrors = new StringBuffer();
-    private static final Logger LOG = Logger.getLogger( RoleSampleSeleniumITCase.class.getName() );
+    private static final Logger LOG = Logger.getLogger( RbacAbacSampleSeleniumITCase.class.getName() );
     private static final String DRIVER_SYS_PROP = "web.driver";
+    private static final String USER_ID = "userId";
+    private static final String PSWD_FIELD = "pswdField";
+    private static final String LOGIN = "login";
+    private static final String BRANCH_LOGIN = "branch.login";
+    private static final String PAGE_WASHERS = "WashersPage";
+    private static final String PAGE_WASHERS_LINK = "Washers Page";
+    private static final String PAGE_TELLERS = "TellersPage";
+    private static final String PAGE_TELLERS_LINK = "Tellers Page";
+    private static final String BTN_ACCOUNT_DEPOSIT = "account.deposit";
+    private static final String BTN_ACCOUNT_WITHDRAWAL = "account.withdrawal";
+    private static final String BTN_ACCOUNT_INQUIRY = "account.inquiry";
+    private static final String BTN_CURRENCY_SOAK = "currency.soak";
+    private static final String BTN_CURRENCY_RINSE = "currency.rinse";
+    private static final String BTN_CURRENCY_DRY = "currency.dry";
+    private static final String BRANCH = "branch";
+    private static final String CURLY = "curly";
+    private static final String MOE = "moe";
+    private static final String LARRY = "larry";
+    private static final String PASSWORD = "password";
+    private static final String NORTH = "North";
+    private static final String SOUTH = "South";
+    private static final String EAST = "East";
+    private static final String WEST = "West";
+
     private enum DriverType
     {
         FIREFOX,
@@ -38,7 +62,6 @@ public class RoleSampleSeleniumITCase
     {
         // Use test local default:
         baseUrl = "http://localhost:8080";
-        // baseUrl = "https://IL1SCOLSP102:8443";
         baseUrl += "/rbac-abac-sample";
         driver.manage().timeouts().implicitlyWait( 2500, TimeUnit.MILLISECONDS );
     }
@@ -87,118 +110,126 @@ public class RoleSampleSeleniumITCase
     }
 
     @Test
-    public void testCase1() throws Exception
+    public void testCurly() throws Exception
     {
         LOG.info( "Begin RoleSampleSeleniumITCase Test Case #1" );
         driver.get( baseUrl );
 
-        // User ssmith, has access to Buyers page:
-        login( GlobalIds.BUYER_USER, "password" );
+        login( CURLY, PASSWORD );
         TUtils.sleep( 1 );
-        doNegativeLinkTest( GlobalIds.PAGE_TELLERS_LINK, GlobalIds.BUYER_USER );
-        doNegativeButtonTest( GlobalIds.BUYER_USER, GlobalIds.PAGE_WASHERS, GlobalIds.BTN_ITEM_SHIP );
-        doNegativeButtonTest( GlobalIds.BUYER_USER, GlobalIds.PAGE_WASHERS, GlobalIds.BTN_AUCTION_CREATE );
-        doUserPositiveButtonTests( GlobalIds.PAGE_WASHERS );
-        doBuyerPositiveButtonTests( GlobalIds.PAGE_WASHERS_LINK, GlobalIds.PAGE_WASHERS );
-        // Now attempt to switch to sellers role:
-        driver.findElement( By.name( GlobalIds.BTN_SWITCH_TELLER ) ).click();
-        // Better not work because user has not been assigned to this role:
-        doNegativeLinkTest( GlobalIds.PAGE_TELLERS_LINK, GlobalIds.BUYER_USER );
-        doNegativeButtonTest( GlobalIds.BUYER_USER, GlobalIds.PAGE_WASHERS, GlobalIds.BTN_ITEM_SHIP );
-        doNegativeButtonTest( GlobalIds.BUYER_USER, GlobalIds.PAGE_WASHERS, GlobalIds.BTN_AUCTION_CREATE );
-        logout( GlobalIds.BUYER_USER );
+        doNegativeLinkTest( PAGE_TELLERS_LINK, CURLY );
+        doNegativeLinkTest( PAGE_WASHERS_LINK, CURLY );
 
-        // User rtaylor, has access to Sellers page:
-        login( GlobalIds.SELLER_USER, "password" );
-        TUtils.sleep( 1 );
-        doNegativeLinkTest( GlobalIds.PAGE_WASHERS_LINK, GlobalIds.SELLER_USER );
-        doNegativeButtonTest( GlobalIds.SELLER_USER, GlobalIds.PAGE_TELLERS, GlobalIds.BTN_ITEM_BID );
-        doNegativeButtonTest( GlobalIds.SELLER_USER, GlobalIds.PAGE_WASHERS, GlobalIds.BTN_ITEM_BUY );
-        doUserPositiveButtonTests( GlobalIds.PAGE_WASHERS );
-        doSellerPositiveButtonTests( GlobalIds.PAGE_TELLERS_LINK, GlobalIds.PAGE_TELLERS );
-        // Now attempt to switch to buyers role:
-        driver.findElement( By.name( GlobalIds.BTN_SWITCH_WASHER ) ).click();
-        // Better not work because user has not been assigned to this role:
-        doNegativeLinkTest( GlobalIds.PAGE_WASHERS_LINK, GlobalIds.SELLER_USER );
-        doNegativeButtonTest( GlobalIds.SELLER_USER, GlobalIds.PAGE_TELLERS, GlobalIds.BTN_ITEM_BID );
-        doNegativeButtonTest( GlobalIds.SELLER_USER, GlobalIds.PAGE_WASHERS, GlobalIds.BTN_ITEM_BUY );
-        logout( GlobalIds.SELLER_USER );
+        // Curly is Teller in East:
+        doSetLocation( EAST );
+        doNegativeLinkTest( PAGE_WASHERS_LINK, CURLY );
+        doTellerPositiveButtonTests( PAGE_TELLERS_LINK, PAGE_TELLERS );
+
+        // Curly is Washer in North:
+        doSetLocation( NORTH );
+        doNegativeLinkTest( PAGE_TELLERS_LINK, CURLY );
+        doWasherPositiveButtonTests( PAGE_WASHERS_LINK, PAGE_WASHERS );
+
+        // Curly is Washer in South:
+        doSetLocation( SOUTH );
+        doNegativeLinkTest( PAGE_TELLERS_LINK, CURLY );
+        doWasherPositiveButtonTests( PAGE_WASHERS_LINK, PAGE_WASHERS );
+
+        logout( CURLY );
     }
+
 
     @Test
-    public void testCase2() throws Exception
+    public void testMoe() throws Exception
     {
-        LOG.info( "Begin RoleSampleSeleniumITCase Test Case #2" );
+        LOG.info( "Begin RoleSampleSeleniumITCase Test Case #1" );
         driver.get( baseUrl );
 
-        // User johndoe, has access to both Buyers and Sellers page:
-        login( GlobalIds.BOTH_USER, "password" );
+        login( MOE, PASSWORD );
         TUtils.sleep( 1 );
+        doNegativeLinkTest( PAGE_TELLERS_LINK, MOE );
+        doNegativeLinkTest( PAGE_WASHERS_LINK, MOE );
 
-        // let's start out as a buyer.
-        enableBuyer();
+        // Moe is Teller in North:
+        doSetLocation( NORTH );
+        doNegativeLinkTest( PAGE_WASHERS_LINK, MOE );
+        doTellerPositiveButtonTests( PAGE_TELLERS_LINK, PAGE_TELLERS );
 
-        // now make sure they are a buyer.
-        doNegativeLinkTest( GlobalIds.PAGE_TELLERS_LINK, GlobalIds.BOTH_USER );
-        doNegativeButtonTest( GlobalIds.BOTH_USER, GlobalIds.PAGE_WASHERS, GlobalIds.BTN_ITEM_SHIP );
-        doNegativeButtonTest( GlobalIds.BOTH_USER, GlobalIds.PAGE_WASHERS, GlobalIds.BTN_AUCTION_CREATE );
-        doUserPositiveButtonTests( GlobalIds.PAGE_WASHERS );
-        doBuyerPositiveButtonTests( GlobalIds.PAGE_WASHERS_LINK, GlobalIds.PAGE_WASHERS );
+        // Moe is Washer in East:
+        doSetLocation( EAST );
+        doNegativeLinkTest( PAGE_TELLERS_LINK, MOE );
+        doWasherPositiveButtonTests( PAGE_WASHERS_LINK, PAGE_WASHERS );
 
-        // Now switch to sellers role:
-        driver.findElement( By.name( GlobalIds.BTN_SWITCH_TELLER ) ).click();
+        // Moe is Washer in South:
+        doSetLocation( SOUTH );
+        doNegativeLinkTest( PAGE_TELLERS_LINK, MOE );
+        doWasherPositiveButtonTests( PAGE_WASHERS_LINK, PAGE_WASHERS );
+
+        logout( MOE );
+    }
+
+
+    @Test
+    public void testLarry() throws Exception
+    {
+        LOG.info( "Begin RoleSampleSeleniumITCase Test Case #1" );
+        driver.get( baseUrl );
+
+        login( LARRY, PASSWORD );
         TUtils.sleep( 1 );
-        doNegativeLinkTest( GlobalIds.PAGE_WASHERS_LINK, GlobalIds.BOTH_USER );
-        doNegativeButtonTest( GlobalIds.SELLER_USER, GlobalIds.PAGE_TELLERS, GlobalIds.BTN_ITEM_BID );
-        doNegativeButtonTest( GlobalIds.SELLER_USER, GlobalIds.PAGE_WASHERS, GlobalIds.BTN_ITEM_BUY );
-        doUserPositiveButtonTests( GlobalIds.PAGE_WASHERS );
-        doSellerPositiveButtonTests( GlobalIds.PAGE_TELLERS_LINK, GlobalIds.PAGE_TELLERS );
-        logout( GlobalIds.BOTH_USER );
+        doNegativeLinkTest( PAGE_TELLERS_LINK, LARRY );
+        doNegativeLinkTest( PAGE_WASHERS_LINK, LARRY );
+
+        // Larry is Teller in South:
+        doSetLocation( SOUTH );
+        doNegativeLinkTest( PAGE_WASHERS_LINK, LARRY );
+        doTellerPositiveButtonTests( PAGE_TELLERS_LINK, PAGE_TELLERS );
+
+        // Larry is Washer in North:
+        doSetLocation( NORTH );
+        doNegativeLinkTest( PAGE_TELLERS_LINK, LARRY );
+        doWasherPositiveButtonTests( PAGE_WASHERS_LINK, PAGE_WASHERS );
+
+        // Larry is Washer in East:
+        doSetLocation( EAST );
+        doNegativeLinkTest( PAGE_TELLERS_LINK, LARRY );
+        doWasherPositiveButtonTests( PAGE_WASHERS_LINK, PAGE_WASHERS );
+
+        logout( LARRY );
     }
 
-    private void doNegativeButtonTest( String userId, String pageId, String buttonId )
+
+    private void doSetLocation( String location )
     {
-        info("Negative button test for " + buttonId + ", and " + userId);
-        try
-        {
-
-            driver.findElement( By.linkText( GlobalIds.PAGE_WASHERS_LINK ) ).click();
-            TUtils.sleep( 1 );
-            driver.findElement( By.name( pageId + "." + buttonId ) ).click();
-            fail("Negative Button Test Failed: " + pageId + "." + buttonId );
-        }
-        catch (org.openqa.selenium.NoSuchElementException e)
-        {
-            // pass
-        }
+        driver.findElement( By.id( BRANCH ) ).clear();
+        driver.findElement( By.id( BRANCH ) ).sendKeys( location );
+        driver.findElement( By.name( BRANCH_LOGIN ) ).click();
     }
 
-    private void doUserPositiveButtonTests( String pageId )
-    {
-        // Click the buttons on the page
-        doPositiveButtonTest(pageId, GlobalIds.BTN_ACCOUNT_CREATE, pageId + "." + GlobalIds.BTN_ACCOUNT_CREATE);
-        doPositiveButtonTest(pageId, GlobalIds.BTN_ITEM_SEARCH, pageId + "." + GlobalIds.BTN_ITEM_SEARCH);
-    }
 
-    private void doBuyerPositiveButtonTests( String linkName, String pageId )
+    private void doTellerPositiveButtonTests( String linkName, String pageId )
     {
         if(linkName != null)
             driver.findElement( By.linkText( linkName ) ).click();
         TUtils.sleep( 1 );
         // Click the buttons on the page
-        doPositiveButtonTest(pageId, GlobalIds.BTN_ITEM_BID, pageId + "." + GlobalIds.BTN_ITEM_BID);
-        doPositiveButtonTest(pageId, GlobalIds.BTN_ITEM_BUY, pageId + "." + GlobalIds.BTN_ITEM_BUY);
+        doPositiveButtonTest(pageId, BTN_ACCOUNT_DEPOSIT, pageId + "." + BTN_ACCOUNT_DEPOSIT);
+        doPositiveButtonTest(pageId, BTN_ACCOUNT_WITHDRAWAL, pageId + "." + BTN_ACCOUNT_WITHDRAWAL);
+        doPositiveButtonTest(pageId, BTN_ACCOUNT_INQUIRY, pageId + "." + BTN_ACCOUNT_INQUIRY);
     }
 
-    private void doSellerPositiveButtonTests( String linkName, String pageId )
+
+    private void doWasherPositiveButtonTests( String linkName, String pageId )
     {
         if(linkName != null)
             driver.findElement( By.linkText( linkName ) ).click();
         TUtils.sleep( 1 );
         // Click the buttons on the page
-        doPositiveButtonTest(pageId, GlobalIds.BTN_AUCTION_CREATE, pageId + "." + GlobalIds.BTN_AUCTION_CREATE);
-        doPositiveButtonTest(pageId, GlobalIds.BTN_ITEM_SHIP, pageId + "." + GlobalIds.BTN_ITEM_SHIP);
+        doPositiveButtonTest(pageId, BTN_CURRENCY_SOAK, pageId + "." + BTN_CURRENCY_SOAK);
+        doPositiveButtonTest(pageId, BTN_CURRENCY_RINSE, pageId + "." + BTN_CURRENCY_RINSE);
+        doPositiveButtonTest(pageId, BTN_CURRENCY_DRY, pageId + "." + BTN_CURRENCY_DRY);
     }
+
 
     private boolean processPopup(String text)
     {
@@ -239,11 +270,11 @@ public class RoleSampleSeleniumITCase
 
     private void login(String userId, String password)
     {
-        driver.findElement( By.id( GlobalIds.USER_ID ) ).clear();
-        driver.findElement( By.id( GlobalIds.USER_ID ) ).sendKeys( userId );
-        driver.findElement( By.id( GlobalIds.PSWD_FIELD ) ).clear();
-        driver.findElement( By.id( GlobalIds.PSWD_FIELD ) ).sendKeys( password );
-        driver.findElement( By.name( GlobalIds.LOGIN ) ).click();
+        driver.findElement( By.id( USER_ID ) ).clear();
+        driver.findElement( By.id( USER_ID ) ).sendKeys( userId );
+        driver.findElement( By.id( PSWD_FIELD ) ).clear();
+        driver.findElement( By.id( PSWD_FIELD ) ).sendKeys( password );
+        driver.findElement( By.name( LOGIN ) ).click();
         LOG.info( "User: " + userId + " has logged ON" );
         info("Login User: " + userId);
     }
@@ -257,10 +288,7 @@ public class RoleSampleSeleniumITCase
 
     private void doNegativeLinkTest( String linkName, String userId  )
     {
-        //info( "Negative link test for userId: " + userId + ", linkName" + linkName );
         info( "Negative link test for " + userId + " on " + linkName);
-        //info("Negative link test for " + linkName + ", and " + userId);
-        //info("Negative button test for " + linkName);
 
         try
         {
@@ -356,23 +384,6 @@ public class RoleSampleSeleniumITCase
         finally
         {
             acceptNextAlert = true;
-        }
-    }
-
-    private void enableBuyer()
-    {
-        try
-        {
-            // if not buyer logged on, log on as buyer.
-            if(! driver.findElement( By.linkText( GlobalIds.PAGE_WASHERS_LINK ) ).isEnabled())
-            {
-                driver.findElement( By.name( GlobalIds.BTN_SWITCH_WASHER ) ).click();
-            }
-        }
-        catch (org.openqa.selenium.NoSuchElementException e)
-        {
-            //fail( "enableBuyer error=" + e);
-            driver.findElement( By.name( GlobalIds.BTN_SWITCH_WASHER ) ).click();
         }
     }
 }

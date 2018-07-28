@@ -3,14 +3,11 @@
  */
 package org.rbacabac;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.realm.*;
+import org.apache.directory.fortress.realm.J2eePolicyMgr;
 import org.apache.directory.fortress.web.control.SecUtils;
-import org.apache.directory.fortress.web.control.SecureIndicatingAjaxButton;
-
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.web.control.FtBookmarkablePageLink;
@@ -19,17 +16,12 @@ import org.apache.directory.fortress.web.control.WicketSession;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.attributes.AjaxCallListener;
-import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.request.mapper.parameter.PageParameters;
-import org.apache.wicket.settings.ExceptionSettings;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import javax.servlet.http.HttpServletRequest;
@@ -119,7 +111,6 @@ public abstract class WicketSampleBasePage extends WebPage
                     {
                         String szPrincipal = principal.toString();
                         // Pull the RBAC session from the realm and assert intno the Web app's session along with user's
-                        // perms:
                         SecUtils.initializeSession( this, j2eePolicyMgr, accessMgr, szPrincipal );
                     }
                     catch ( org.apache.directory.fortress.core.SecurityException se )
@@ -141,6 +132,10 @@ public abstract class WicketSampleBasePage extends WebPage
         return userid;
     }
 
+    protected String getBranchId()
+    {
+        return (String)( WicketSession.get() ).getAttribute( "branchId");
+    }
 
     /**
      * Used by the child pages.
@@ -183,6 +178,7 @@ public abstract class WicketSampleBasePage extends WebPage
             }
             // Retrieve user permissions and attach RBAC session to Wicket session:
             ( ( WicketSession ) WicketSession.get() ).setSession( session );
+            ( WicketSession.get() ).setAttribute( "branchId", branchId );
             SecUtils.getPermissions( component, accessMgr );
         }
     }

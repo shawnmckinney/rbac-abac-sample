@@ -32,7 +32,7 @@ public class TellersPage extends WicketSampleBasePage
         {
             super( id );
 
-            add( new Label( "label1", "Welcome Teller : " + userId ) );
+            add( new Label( "label1", "Welcome Teller: " + userId + ", Branch: " + getBranchId() ) );
 
             add( new FtIndicatingAjaxButton( "account.deposit" )
             {

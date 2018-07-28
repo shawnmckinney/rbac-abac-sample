@@ -32,7 +32,7 @@ public class WashersPage extends WicketSampleBasePage
         {
             super( id );
 
-            add( new Label( "label1", "Welcome Currency Washer : " + userId ) );
+            add( new Label( "label1", "Welcome Currency Washer: " + userId + ", Branch: " + getBranchId() ) );
 
             add( new FtIndicatingAjaxButton( "currency.soak" )
             {
