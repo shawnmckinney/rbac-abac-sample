@@ -18,6 +18,9 @@
    under the License.
 -->
 <project basedir="." default="all" name="Fortress Sample Data">
+
+    <!-- This script drives fortress core apis to load security policies for this application -->
+
     <taskdef classname="org.apache.directory.fortress.core.ant.FortressAntTask" name="FortressAdmin">
         <classpath path="${java.class.path}"/>
     </taskdef>
@@ -25,6 +28,7 @@
     <target name="all">
         <FortressAdmin>
 
+            <!-- This config setting constrains role activation by locale on Teller and Washer -->
             <updconfig>
                 <config props="config.realm:DEFAULT"/>
                 <config props="Role_Tellers:locale"/>
@@ -32,6 +36,7 @@
             </updconfig>
 
             <adduser>
+                <!-- The userProps attribute is used to map user role activation to locale (branch) attribute. -->
                 <user userId="curly"
                       password="password"
                       description="Head Teller of the East, Coin Washer in North and South"
@@ -56,6 +61,7 @@
             </adduser>
 
             <adduserrole>
+                <!-- Although each user is assigned both Teller and Washer, activation is limited by locale. -->
                 <userrole userId="curly" name="Role_Users"/>
                 <userrole userId="curly" name="Role_Tellers"/>
                 <userrole userId="curly" name="Role_Washers"/>
@@ -68,13 +74,13 @@
             </adduserrole>
 
             <addrole>
-                <role name="Role_Users" description="Basic rights"/>
+                <role name="Role_Users" description="Basic rights to log into the web app"/>
                 <role name="Role_Tellers" description="May transact on customer accounts"/>
                 <role name="Role_Washers" description="May wash currency"/>
             </addrole>
 
             <addsdset>
-                <sdset name="BankSafe" setmembers="Role_Tellers,Role_Washers" cardinality="2" setType="DYNAMIC" description="User may only be activate one role in bank"/>
+                <sdset name="BankSafe" setmembers="Role_Tellers,Role_Washers" cardinality="2" setType="DYNAMIC" description="User may only activate one of these roles"/>
             </addsdset>
 
             <addpermobj>
