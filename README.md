@@ -287,6 +287,7 @@ Run the selenium automated test:
 ## SECTION VIII. Under the Covers
 
  How does this work?  Have a look at some code...
+
  Excerpt from ![WicketSampleBasePage.java](src/main/java/org/rbacabac/WicketSampleBasePage.java):
 
  ```
@@ -305,12 +306,11 @@ Run the selenium automated test:
   }
  ```
 
- By pushing the **locale** attribute into the User's RBAC session the runtime will match that with what
- was persisted into the user's property.
+ Pushing the **locale** attribute into the User's RBAC session the runtime will match that instance data with their stored policy.
 
  ![Image4](images/CurlyProps.png "View Curly Data")
 
- Notice that this user has been assigned both Teller and Washer (ftRA attribute) and
- that properties (ftProps) constrains the location in which it can be activated.
+ Notice that this user has been assigned both Teller and Washer (**ftRA** attribute) and
+ that (**ftProps**) constrains the location in which it can be activated.
 
- This could work with other attributes as well.  e.g. account, organization, etc.
+ This works with any kind of instance data, e.g. account, organization, etc.
