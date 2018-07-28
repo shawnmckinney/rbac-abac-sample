@@ -43,10 +43,6 @@ public abstract class WicketSampleBasePage extends WebPage
     @SpringBean
     private J2eePolicyMgr j2eePolicyMgr;
 
-    private final String TELLER = "Role_Tellers";
-    private final String WASHER = "Role_Washers";
-    final String HOME_PAGE_OBJ = "org.rbacabac.HomePage";
-
     public WicketSampleBasePage()
     {
         final Link actionLink = new Link( "logout.link" )
@@ -74,14 +70,11 @@ public abstract class WicketSampleBasePage extends WebPage
      */
     public class UsersForm extends Form
     {
-        private List<UserRole> inactiveRoles;
-        private List<UserRole> activeRoles;
         private TextField branchField;
 
         public UsersForm(String id)
         {
             super( id );
-            //add ( new TextField( "branch" ), Model.of( "" ) );
             branchField = new TextField("branch", Model.of(""));
             add(branchField);
 

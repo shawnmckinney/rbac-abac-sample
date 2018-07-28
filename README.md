@@ -1,7 +1,7 @@
 # Overview of the rbac-abac-sample README
 
  * This document demonstrates how to build and deploy the fortress rbac with abac sample.
- * The intent is to demonstrate using attributes to control role activation.
+ * The intent is to demonstrate using attributes to control role activation within an Apache Wicket Web app.
  * For more info about the idea: [Towards an Attribute-Based Role-Based Access Control System](https://iamfortress.net/2018/07/07/towards-an-attribute-based-role-based-access-control-system/)
 
 -------------------------------------------------------------------------------
@@ -225,11 +225,11 @@ The buttons on the pages are guarded by rbac permission checks.  The permissions
 -------------------------------------------------------------------------------
 ## Manually Test the rbac with abac sample
 
- 1. Open link to [http://localhost:8080/rbac-abac-sample](http://localhost:8080/rbac-abac-sample)
+1. Open link to [http://localhost:8080/rbac-abac-sample](http://localhost:8080/rbac-abac-sample)
 
- 2. Login with Java EE authentication form:
+2. Login with Java EE authentication form:
 
- 3. User-Password Table
+3. User-Password Table
 
  | userId        | Password      |
  | ------------- | ------------- |
@@ -237,15 +237,26 @@ The buttons on the pages are guarded by rbac permission checks.  The permissions
  | moe           | password      |
  | larry         | password      |
 
- 4. Enter a location for user and click on the button.
+4. Enter a location for user and click on the button.
 
- 5. Once the location is set, a link will appear corresponding with the user's allowed role for that location.
- Click on the link, and then buttons appear simulating user access for that particular location.
+ ```
+ Enter North, South or East
+ ```
 
- 6. Change locations, and a different link appears, with different operations.  This is RBAC with ABAC in
+ ![Image1](images/EnterBranch.png "Set Branch Location")
+
+5. Once the location is set, a link will appear corresponding with the user's allowed role for that location.
+
+ ![Image2](images/Washer.png "Washer Link")
+
+6. Click on the link, and then buttons appear simulating user access for that particular location.
+
+ ![Image3](images/WashersPage.png "Washers Page")
+
+7. Change locations, and a different link appears, with different operations.  This is RBAC with ABAC in
  action, limiting which role may be activated in the session by location.
 
- 5. Try a different user.
+8. Try a different user.
   * Each has different access rights to application.
 
 ## Automatically Test the rbac with abac sample
