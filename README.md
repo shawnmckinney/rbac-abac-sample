@@ -232,9 +232,18 @@ App comprised of three pages, each has buttons and links that are guarded by per
 |               | Tellers       |               |
 |               |               |               |
 
-#### 4. Role-Permission Table
+#### 4. Role-Permission Table Links
 
- This example wouldn't be RBAC with role-to-permission mappings.  Here, the buttons are guarded by rbac permission checks that are dependent on which roles are active.
+ The page links are guarded by RBAC permissions that dependent on which roles are active in the session.
+
+| role       | WashersPage | TellersPage |
+| ---------- | ----------- | ----------- |
+| Tellers    | false       | true        |
+| Washers    | true        | false       |
+
+#### 5. Role-Permission Table Buttons
+
+ The buttons on the page are also guarded by RBAC permissions.
 
 | role       | Account.deposit | Account.withdrawal | Account.inquiry  | Currency.soak | Currency.rise | Currency.dry |
 | ---------- | --------------- | ------------------ | ---------------- | ------------- | ------------- | ------------ |
