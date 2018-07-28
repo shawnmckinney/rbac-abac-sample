@@ -200,21 +200,21 @@ App comprised of three pages, each has buttons and links that are guarded by per
 For this app, user-to-role assignments are:
 #### 1. User-to-Role Assignment Table
 
-| user       | Role_Tellers   | Role_Washers  |
-| ---------- | -------------- | ------------- |
-| curly      | true           | true          |
-| moe        | true           | true          |
-| larry      | true           | true          |
+| user       | Tellers     | Washers  |
+| ---------- | ----------- | -------- |
+| curly      | true        | true     |
+| moe        | true        | true     |
+| larry      | true        | true     |
 
 But we want to control role activation using attributes based on Branch location:
 
 #### 2. User-to-Role Activation Table by Branch
 
-| user       | Role_Tellers   | Role_Washers  |
-| ---------- | -------------- | ------------- |
-| curly      | East           | North, South  |
-| moe        | North          | East, South   |
-| larry      | South          | North, East   |
+| user       | Tellers   | Washers       |
+| ---------- | --------- | ------------- |
+| curly      | East      | North, South  |
+| moe        | North     | East, South   |
+| larry      | South     | North, East   |
 
 Even though the test users are assigned both roles, they are limited
 which can be activated by branch.
@@ -226,8 +226,8 @@ For that, we'll use a dynamic separation of duty policy.
 
 | set name      | Set Members   | Cardinality   |
 | ------------- | ------------- | ------------- |
-| Bank Safe     | Role_Washers  | 2             |
-|               | Role_Tellers  |               |
+| Bank Safe     | Washers       | 2             |
+|               | Tellers       |               |
 |               |               |               |
 
 The buttons on the pages are guarded by rbac permission checks.  The permissions are dependent on which roles are active.

@@ -31,8 +31,8 @@
             <!-- This config setting constrains role activation by locale on Teller and Washer -->
             <updconfig>
                 <config props="config.realm:DEFAULT"/>
-                <config props="Role_Tellers:locale"/>
-                <config props="Role_Washers:locale"/>
+                <config props="Tellers:locale"/>
+                <config props="Washers:locale"/>
             </updconfig>
 
             <adduser>
@@ -40,21 +40,21 @@
                 <user userId="curly"
                       password="password"
                       description="Head Teller of the East, Coin Washer in North and South"
-                      userProps="Role_Tellers:East$Role_Washers:North,South"
+                      userProps="Tellers:East$Washers:North,South"
                       cn="Curly Howrowitz"
                       sn="Horowitz"
                       ou="u1" />
                 <user userId="moe"
                       password="password"
                       description="Head Teller of the North, Coin Washer in East and South"
-                      userProps="Role_Tellers:North$Role_Washers:East,South"
+                      userProps="Tellers:North$Washers:East,South"
                       cn="Moe Howard"
                       sn="Howard"
                       ou="u1" />
                 <user userId="larry"
                       password="password"
                       description="Head Teller of the South, Coin Washer in North and East"
-                      userProps="Role_Tellers:South$Role_Washers:North,East"
+                      userProps="Tellers:South$Washers:North,East"
                       cn="Larry Fine"
                       sn="Fine"
                       ou="u1" />
@@ -62,25 +62,25 @@
 
             <adduserrole>
                 <!-- Although each user is assigned both Teller and Washer, activation is limited by locale. -->
-                <userrole userId="curly" name="Role_Users"/>
-                <userrole userId="curly" name="Role_Tellers"/>
-                <userrole userId="curly" name="Role_Washers"/>
-                <userrole userId="moe" name="Role_Users"/>
-                <userrole userId="moe" name="Role_Tellers"/>
-                <userrole userId="moe" name="Role_Washers"/>
-                <userrole userId="larry" name="Role_Users"/>
-                <userrole userId="larry" name="Role_Tellers"/>
-                <userrole userId="larry" name="Role_Washers"/>
+                <userrole userId="curly" name="Bank_Users"/>
+                <userrole userId="curly" name="Tellers"/>
+                <userrole userId="curly" name="Washers"/>
+                <userrole userId="moe" name="Bank_Users"/>
+                <userrole userId="moe" name="Tellers"/>
+                <userrole userId="moe" name="Washers"/>
+                <userrole userId="larry" name="Bank_Users"/>
+                <userrole userId="larry" name="Tellers"/>
+                <userrole userId="larry" name="Washers"/>
             </adduserrole>
 
             <addrole>
-                <role name="Role_Users" description="Basic rights to log into the web app"/>
-                <role name="Role_Tellers" description="May transact on customer accounts"/>
-                <role name="Role_Washers" description="May wash currency"/>
+                <role name="Bank_Users" description="Basic rights to log into the web app"/>
+                <role name="Tellers" description="May transact on customer accounts"/>
+                <role name="Washers" description="May wash currency"/>
             </addrole>
 
             <addsdset>
-                <sdset name="BankSafe" setmembers="Role_Tellers,Role_Washers" cardinality="2" setType="DYNAMIC" description="User may only activate one of these roles"/>
+                <sdset name="BankSafe" setmembers="Tellers,Washers" cardinality="2" setType="DYNAMIC" description="User may only activate one of these roles"/>
             </addsdset>
 
             <addpermobj>
@@ -105,15 +105,15 @@
             </addpermop>
 
             <addpermgrant>
-                <permgrant objName="WashersPage" opName="link" roleNm="Role_Washers"/>
-                <permgrant objName="TellersPage" opName="link" roleNm="Role_Tellers"/>
-                <permgrant objName="Account" opName="deposit" roleNm="Role_Tellers"/>
-                <permgrant objName="Account" opName="withdrawal" roleNm="Role_Tellers"/>
-                <permgrant objName="Account" opName="inquiry" roleNm="Role_Tellers"/>
-                <permgrant objName="Currency" opName="soak" roleNm="Role_Washers"/>
-                <permgrant objName="Currency" opName="rinse" roleNm="Role_Washers"/>
-                <permgrant objName="Currency" opName="dry" roleNm="Role_Washers"/>
-                <permgrant objName="Branch" opName="login" roleNm="Role_Users"/>
+                <permgrant objName="WashersPage" opName="link" roleNm="Washers"/>
+                <permgrant objName="TellersPage" opName="link" roleNm="Tellers"/>
+                <permgrant objName="Account" opName="deposit" roleNm="Tellers"/>
+                <permgrant objName="Account" opName="withdrawal" roleNm="Tellers"/>
+                <permgrant objName="Account" opName="inquiry" roleNm="Tellers"/>
+                <permgrant objName="Currency" opName="soak" roleNm="Washers"/>
+                <permgrant objName="Currency" opName="rinse" roleNm="Washers"/>
+                <permgrant objName="Currency" opName="dry" roleNm="Washers"/>
+                <permgrant objName="Branch" opName="login" roleNm="Bank_Users"/>
             </addpermgrant>
 
             <addorgunit>

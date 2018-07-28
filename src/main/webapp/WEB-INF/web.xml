@@ -6,7 +6,7 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
 
-    <display-name>Role Engineering Sample Project</display-name>
+    <display-name>Rbac-to-Abac Sample Project</display-name>
 
     <filter>
         <filter-name>org.rbacabac</filter-name>
@@ -44,13 +44,13 @@
         <!-- OMIT auth-constraint -->
     </security-constraint>
     <security-constraint>
-        <display-name>Role Engineering Sample Security Constraints</display-name>
+        <display-name>Rbac-to-Abac Sample Security Constraints</display-name>
         <web-resource-collection>
             <web-resource-name>Protected Area</web-resource-name>
             <url-pattern>/wicket/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>Role_Users</role-name>
+            <role-name>Bank_Users</role-name>
         </auth-constraint>
     </security-constraint>
     <login-config>
@@ -62,7 +62,7 @@
         </form-login-config>
     </login-config>
     <security-role>
-        <role-name>Role_Users</role-name>
+        <role-name>Bank_Users</role-name>
     </security-role>
     <error-page>
         <error-code>403</error-code>
