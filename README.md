@@ -217,8 +217,8 @@ For that, we'll use a dynamic separation of duty policy.
 
 | set name      | Set Members   | Cardinality   |
 | ------------- | ------------- | ------------- |
-| BuySel        | Role_Washers  | 2             |
-|               | Role_Tellers   |               |
+| Bank Safe     | Role_Washers  | 2             |
+|               | Role_Tellers  |               |
 |               |               |               |
 
 The buttons on the pages are guarded by rbac permission checks.  The permissions are dependent on which roles are active.
