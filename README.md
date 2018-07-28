@@ -182,15 +182,11 @@ This sample web app uses Java EE security.
  ```
 
 -------------------------------------------------------------------------------
-## Understand the security policy using RBAC
-
-Security policy was derived from this:
-![Use Case](src/main/javadoc/doc-files/Role-Engineering-Sample-Use-Case.png "Simple Security Use Case")
+## Understand the security policy
 
 To gain full understanding, check out the file used to load it into the LDAP directory: ![rbac-abac-sample security policy](src/main/resources/rbac-abac-sample-security-policy.xml).
 
-App comprised of three pages, each has buttons and links that are guarded by permissions.  The permissions are granted to a particular user via their role assignments.  But those
-privileges are only realized after role activation.
+App comprised of three pages, each has buttons and links that are guarded by permissions.  The permissions are granted to a particular user via their role assignments.
 
 For this app, user-to-role assignments are:
 ### User-to-Role Assignment Table
@@ -202,15 +198,21 @@ For this app, user-to-role assignments are:
 | larry      | true           | true          |
 
 But we want to control role activation using attributes based on Branch location:
+
+### User-to-Role Activation Table by Branch
+
 | user       | Role_Tellers   | Role_Washers  |
 | ---------- | -------------- | ------------- |
 | curly      | East           | North, South  |
 | moe        | North          | East, South   |
 | larry      | South          | North, East   |
 
+Even though the test users are assigned both roles, they are limited
+which can be activated by branch.
 
-But, we must never let curly, moe or larry be able to exercise both roles at the same time, regardless of location.
-For that, we'll use a dynamic separation of duty policy constraint to prevent both roles from being activated at the same time.
+Furthermore, we must never let the users be able to activate both roles simultaneously regardless of location.
+For that, we'll use a dynamic separation of duty policy.
+
 ### Role-to-Role Dynamic Separation of Duty Constraint Table
 
 | set name      | Set Members   | Cardinality   |
