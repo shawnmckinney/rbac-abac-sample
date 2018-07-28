@@ -12,10 +12,10 @@
  * SECTION 4. Build and deploy rbac-abac-sample
  * SECTION 5. Understand the security policy
  * SECTION 6. Manually Test the rbac with abac sample
- * SECTION 7. Automatically Test the rbac with abac sample (using Selenium)
+ * SECTION 7. Automatically Test the RBAC with ABAC sample (using Selenium)
 
 -------------------------------------------------------------------------------
-## Prerequisites
+## SECTION I. Prerequisites
 1. Java 8
 2. Apache Maven 3++
 3. Apache Tomcat 7++
@@ -24,7 +24,7 @@
     * [APACHEDS & Fortress QUICKSTART on DOCKER](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-DOCKER-APACHEDS.md)
 
 -------------------------------------------------------------------------------
-## Prepare rbac-abac-sample package
+## SECTION II. Prepare rbac-abac-sample package
 
 #### 1. Stage the project.
 
@@ -117,7 +117,7 @@
  ```
 
 -------------------------------------------------------------------------------
-## Prepare Tomcat for Java EE Security
+## SECTION III. Prepare Tomcat for Java EE Security
 
 This sample web app uses Java EE security.
 
@@ -151,7 +151,7 @@ This sample web app uses Java EE security.
  related to web hosting and multitenancy.
 
 -------------------------------------------------------------------------------
-## Build and deploy rbac-abac-sample
+## SECTION IV. Build and deploy rbac-abac-sample
 
 #### 1. Set java and maven home env variables.
 
@@ -191,7 +191,7 @@ This sample web app uses Java EE security.
  ```
 
 -------------------------------------------------------------------------------
-## Understand the security policy
+## SECTION V. Understand the security policy
 
 To gain full understanding, check out the file used to load it into the LDAP directory: ![rbac-abac-sample security policy](src/main/resources/rbac-abac-sample-security-policy.xml).
 
@@ -233,7 +233,7 @@ For that, we'll use a dynamic separation of duty policy.
 The buttons on the pages are guarded by rbac permission checks.  The permissions are dependent on which roles are active.
 
 -------------------------------------------------------------------------------
-## Manually Test the rbac with abac sample
+## SECTION VI. Manually Test the rbac with abac sample
 
 #### 1. Open link to [http://localhost:8080/rbac-abac-sample](http://localhost:8080/rbac-abac-sample)
 
@@ -269,7 +269,7 @@ The buttons on the pages are guarded by rbac permission checks.  The permissions
 #### 8. Try a different user.
   * Each has different access rights to application.
 
-## Automatically Test the rbac with abac sample
+## SECTION VII. Automatically Test the RBAC with ABAC sample
 
 Run the selenium automated test:
 
