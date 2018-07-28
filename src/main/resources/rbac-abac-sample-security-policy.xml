@@ -74,7 +74,7 @@
             </addrole>
 
             <addsdset>
-                <sdset name="Bank" setmembers="Role_Tellers,Role_Washers" cardinality="2" setType="DYNAMIC" description="User can only be activate one role of this set"/>
+                <sdset name="BankSafe" setmembers="Role_Tellers,Role_Washers" cardinality="2" setType="DYNAMIC" description="User may only be activate one role in bank"/>
             </addsdset>
 
             <addpermobj>
