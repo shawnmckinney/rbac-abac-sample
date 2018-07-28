@@ -1,6 +1,6 @@
 # Overview of the rbac-abac-sample README
 
- * This document demonstrates how to build and deploy the fortress rbac with attributes sample.
+ * This document demonstrates how to build and deploy the fortress rbac with abac sample.
  * The intent is to demonstrate using attributes to control role activation.
  * For more info about the idea: [Towards an Attribute-Based Role-Based Access Control System](https://iamfortress.net/2018/07/07/towards-an-attribute-based-role-based-access-control-system/)
 
@@ -9,22 +9,40 @@
 1. Java 8
 2. Apache Maven 3++
 3. Apache Tomcat 7++
-4. Basic LDAP server setup by completing either section in Apache Fortress Core Quickstart
+4. Basic LDAP server setup by completing either Quickstart
     * [OpenLDAP & Fortress QUICKSTART on DOCKER](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-DOCKER-SLAPD.md)
     * [APACHEDS & Fortress QUICKSTART on DOCKER](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-DOCKER-APACHEDS.md)
 
 -------------------------------------------------------------------------------
 ## Prepare rbac-abac-sample package
 
-1. [Download ZIP](https://github.com/shawnmckinney/rbac-abac-sample/archive/master.zip)
+1. Stage the project.
 
-2. Extract the zip archive to your local machine.
+ a. Download and extract from Github:
 
-3. cd rbac-abac-sample-master
+ [Download ZIP](https://github.com/shawnmckinney/rbac-abac-sample/archive/master.zip)
 
-4. Rename [fortress.properties.example](src/main/resources/fortress.properties.example) to fortress.properties.
+ Or
 
- Pick One:
+ b. Or clone locally:
+
+ ```
+ git clone https://github.com/shawnmckinney/rbac-abac-sample.git
+ ```
+
+3. Change directory into it:
+
+ ```
+ cd rbac-abac-sample
+ ```
+
+4. Enable an LDAP server:
+
+ ```
+ cp src/main/resources/fortress.properties.example to fortress.properties
+ ```
+
+ Pick either Apache Directory or OpenLDAP server:
 
  a. Prepare fortress for apacheds usage:
 
@@ -96,7 +114,7 @@ This sample web app uses Java EE security.
 1. Download the fortress realm proxy jar into tomcat/lib folder:
 
   ```
-  wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.0/fortress-realm-proxy-2.0.0.jar -P $TOMCAT_HOME/lib
+  wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.1/fortress-realm-proxy-2.0.1.jar -P $TOMCAT_HOME/lib
   ```
 
   where *TOMCAT_HOME* matches your target env.
