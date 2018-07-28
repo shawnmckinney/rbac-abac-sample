@@ -200,8 +200,9 @@ To gain full understanding, check out the file used to load it into the LDAP dir
 
 App comprised of three pages, each has buttons and links that are guarded by permissions.  The permissions are granted to a particular user via their role activations.
 
-For this app, user-to-role assignments are:
 #### 1. User-to-Role Assignment Table
+
+ For this app, user-to-role assignments are:
 
 | user       | Tellers     | Washers  |
 | ---------- | ----------- | -------- |
@@ -231,7 +232,14 @@ For this app, user-to-role assignments are:
 |               | Tellers       |               |
 |               |               |               |
 
- The buttons on the pages are guarded by rbac permission checks.  The permissions are dependent on which roles are active.
+#### 4. Role-Permission Table
+
+ This example wouldn't be RBAC with role-to-permission mappings.  Here, the buttons are guarded by rbac permission checks that are dependent on which roles are active.
+
+| role       | Account.deposit | Account.withdrawal | Account.inquiry  | Currency.soak | Currency.rise | Currency.dry |
+| ---------- | --------------- | ------------------ | ---------------- | ------------- | ------------- | ------------ |
+| Tellers    | true            | true               | true             | false         | false         | false        |
+| Washers    | false           | false              | false            | true          | true          | true         |
 
 -------------------------------------------------------------------------------
 ## SECTION VI. Manually Test the RBAC with ABAC sample
