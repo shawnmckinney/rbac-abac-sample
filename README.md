@@ -217,11 +217,8 @@ But we want to control role activation using attributes based on Branch location
 | moe        | North     | East, South   |
 | larry      | South     | North, East   |
 
-Even though the test users are assigned both roles, they are limited
-which can be activated by branch.
-
-Furthermore due to toxic combination, we must never let a user activate both roles simultaneously regardless of location.
-For that, we'll use a dynamic separation of duty policy.
+ * *Even though the test users are assigned both roles, they are limited which can be activated by branch.*
+ * *Furthermore due to toxic combination, we must never let a user activate both roles simultaneously regardless of location. For that, we'll use a dynamic separation of duty policy.*
 
 #### 3. Role-to-Role Dynamic Separation of Duty Constraint Table
 
@@ -231,7 +228,7 @@ For that, we'll use a dynamic separation of duty policy.
 |               | Tellers       |               |
 |               |               |               |
 
-The buttons on the pages are guarded by rbac permission checks.  The permissions are dependent on which roles are active.
+ * *The buttons on the pages are guarded by rbac permission checks.  The permissions are dependent on which roles are active.*
 
 -------------------------------------------------------------------------------
 ## SECTION VI. Manually Test the RBAC with ABAC sample
@@ -310,7 +307,6 @@ Run the selenium automated test:
 
  ![Image4](images/CurlyProps.png "View Curly Data")
 
- Notice that this user has been assigned both Teller and Washer (**ftRA** attribute) and
- that (**ftProps**) constrains the location in which it can be activated.
-
- This works with any kind of instance data, e.g. account, organization, etc.
+ * *Notice that this user has been assigned both Teller and Washer (**ftRA** attribute) and
+ that (**ftProps**) constrains the location in which it can be activated.*
+ * *This works with any kind of instance data, e.g. account, organization, etc.*
