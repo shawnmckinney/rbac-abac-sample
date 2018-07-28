@@ -11,8 +11,9 @@
  * SECTION 3. Prepare Tomcat for Java EE Security
  * SECTION 4. Build and deploy rbac-abac-sample
  * SECTION 5. Understand the security policy
- * SECTION 6. Manually Test the rbac with abac sample
+ * SECTION 6. Manually Test the RBAC with ABAC sample
  * SECTION 7. Automatically Test the RBAC with ABAC sample (using Selenium)
+ * SECTION 8. Under the Covers
 
 -------------------------------------------------------------------------------
 ## SECTION I. Prerequisites
@@ -219,7 +220,7 @@ But we want to control role activation using attributes based on Branch location
 Even though the test users are assigned both roles, they are limited
 which can be activated by branch.
 
-Furthermore, we must never let the users be able to activate both roles simultaneously regardless of location.
+Furthermore due to toxic combination, we must never let a user activate both roles simultaneously regardless of location.
 For that, we'll use a dynamic separation of duty policy.
 
 #### 3. Role-to-Role Dynamic Separation of Duty Constraint Table
@@ -233,7 +234,7 @@ For that, we'll use a dynamic separation of duty policy.
 The buttons on the pages are guarded by rbac permission checks.  The permissions are dependent on which roles are active.
 
 -------------------------------------------------------------------------------
-## SECTION VI. Manually Test the rbac with abac sample
+## SECTION VI. Manually Test the RBAC with ABAC sample
 
 #### 1. Open link to [http://localhost:8080/rbac-abac-sample](http://localhost:8080/rbac-abac-sample)
 
@@ -280,3 +281,36 @@ Run the selenium automated test:
  Selenium Test Notes:
  * *This test will log in as each user, perform positive and negative test cases.*
  * *Requires Firefox on target machine.*
+
+
+-------------------------------------------------------------------------------
+## SECTION VIII. Under the Covers
+
+ How does this work?  Have a look at some code...
+ Excerpt from ![WicketSampleBasePage.java](src/main/java/org/rbacabac/WicketSampleBasePage.java):
+
+ ```
+  Properties props = new Properties(  );
+  props.setProperty( "locale", branchId );
+  User user = new User(userId);
+  user.addProperties( props );
+  Session session = null;
+  try
+  {
+      session = accessMgr.createSession( user, true );
+  }
+  catch (SecurityException se)
+  {
+      // log or throw
+  }
+ ```
+
+ By pushing the **locale** attribute into the User's RBAC session the runtime will match that with what
+ was persisted into the user's property.
+
+ ![Image4](images/CurlyProps.png "View Curly Data")
+
+ Notice that this user has been assigned both Teller and Washer (ftRA attribute) and
+ that properties (ftProps) constrains the location in which it can be activated.
+
+ This could work with other attributes as well.  e.g. account, organization, etc.
