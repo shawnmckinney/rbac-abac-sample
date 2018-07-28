@@ -9,13 +9,9 @@
 1. Java 8
 2. Apache Maven 3++
 3. Apache Tomcat 7++
-4. Basic LDAP server setup by completing either section in Apache Fortress Core Quickstart:
-    * *SECTION 4. Apache Tomcat Setup* in [README-QUICKSTART-SLAPD.md](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-SLAPD.md)
-    * *SECTION 5. Apache Tomcat Setup* in [README-QUICKSTART-APACHEDS.md](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-APACHEDS.md)
-
-or better yet, skip the infra setup using...
+4. Basic LDAP server setup by completing either section in Apache Fortress Core Quickstart
     * *[OpenLDAP & Fortress QUICKSTART on DOCKER](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-DOCKER-SLAPD.md)
-    * *[APACHEDS & Fortress QUICKSTART on DOCKER](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-DOCKER-APACHEDS.md)
+    * *[APACHEDS & Fortress QUICKSTART on DOCKER](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-DOCKER-APACHEDS.md) 
 
 -------------------------------------------------------------------------------
 ## Prepare rbac-abac-sample package
