@@ -158,13 +158,13 @@ This sample web app uses Java EE security.
 
 #### 2. Run this command from the root package:
 
-  Deploy to tomcat server:
+  a. Deploy to tomcat server:
 
   ```maven
  mvn clean tomcat:deploy -Dload.file
   ```
 
-  Or if already deployed:
+  b. Or if already deployed:
 
   ```maven
  mvn clean tomcat:redeploy -Dload.file
@@ -190,6 +190,8 @@ This sample web app uses Java EE security.
      </configuration>
  </plugin>
  ```
+
+ c. Or simply copy .war into Tomcat's webapps folder.
 
 -------------------------------------------------------------------------------
 ## SECTION V. Understand the security policy
@@ -261,15 +263,17 @@ But we want to control role activation using attributes based on Branch location
 
  ![Image3](images/WashersPage.png "Washers Page")
 
-#### 7. Change locations, and a different link appears, with different operations.  This is RBAC with ABAC in
- action, limiting which role may be activated in the session by location.
+#### 7. Change locations, and a different link appears, with different operations.
+
+ This is RBAC with ABAC in action, limiting which role may be activated in the session by location.
 
 #### 8. Try a different user.
-  * Each has different access rights to application.
+
+ Each has different access rights to application.
 
 ## SECTION VII. Automatically Test the RBAC with ABAC sample
 
-Run the selenium automated test:
+ Run the selenium automated test:
 
  ```
  mvn test -Dtest=RbacAbacSampleSeleniumITCase
