@@ -119,7 +119,6 @@ This sample web app uses Java EE security.
 
   where *TOMCAT_HOME* matches your target env.
 
-
 2. Prepare tomcat to allow autodeploy of rbac-abac-sample web app:
 
  ```
