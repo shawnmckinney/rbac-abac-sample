@@ -16,6 +16,7 @@ import org.apache.directory.fortress.web.control.WicketSession;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -78,7 +79,8 @@ public abstract class WicketSampleBasePage extends WebPage
             branchField = new TextField("branch", Model.of(""));
             add(branchField);
 
-            add( new FtIndicatingAjaxButton( "branch.login" )
+            //add( new FtIndicatingAjaxButton( "branch.login" )
+            add( new IndicatingAjaxButton( "branch.login" )
             {
                 @Override
                 protected void onSubmit(AjaxRequestTarget target, Form form)
@@ -95,6 +97,7 @@ public abstract class WicketSampleBasePage extends WebPage
             Principal principal = servletReq.getUserPrincipal();
 
             // Is this a Java EE secured page && has the User successfully authenticated already?
+/*
             boolean isSecured = principal != null;
             if ( isSecured )
             {
@@ -112,10 +115,19 @@ public abstract class WicketSampleBasePage extends WebPage
                     }
                 }
             }
+*/
         }
     }
 
 
+    protected String getUserid()
+    {
+        HttpServletRequest servletReq = ( HttpServletRequest ) getRequest().getContainerRequest();
+        Principal principal = servletReq.getUserPrincipal();
+        return principal.getName();
+    }
+
+/*
     protected String getUserid()
     {
         String userid;
@@ -125,6 +137,7 @@ public abstract class WicketSampleBasePage extends WebPage
         return userid;
     }
 
+*/
     protected String getBranchId()
     {
         return (String)( WicketSession.get() ).getAttribute( "branchId");
