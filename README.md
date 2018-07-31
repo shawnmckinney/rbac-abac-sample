@@ -293,7 +293,7 @@ App comprised of three pages, each has buttons and links that are guarded by per
 
  Run the selenium automated test:
 
- ```
+ ```mvn
  mvn test -Dtest=RbacAbacSampleSeleniumITCase
  ```
 
@@ -309,7 +309,7 @@ App comprised of three pages, each has buttons and links that are guarded by per
 
  Excerpt from ![WicketSampleBasePage.java](src/main/java/org/rbacabac/WicketSampleBasePage.java):
 
- ```
+ ```java
   Properties props = new Properties(  );
   props.setProperty( "locale", branchId );
   User user = new User(userId);
