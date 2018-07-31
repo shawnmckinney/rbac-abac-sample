@@ -7,8 +7,8 @@
 -------------------------------------------------------------------------------
 ## Table of Contents
  * SECTION 1. Prerequisites
- * SECTION 2. Prepare rbac-abac-sample package
- * SECTION 3. Prepare Tomcat for Java EE Security
+ * SECTION 2. Prepare Tomcat for Java EE Security
+ * SECTION 3. Prepare rbac-abac-sample package
  * SECTION 4. Build and deploy rbac-abac-sample
  * SECTION 5. Understand the security policy
  * SECTION 6. Manually Test the RBAC with ABAC sample
@@ -25,7 +25,38 @@
     * [APACHEDS & Fortress QUICKSTART on DOCKER](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-DOCKER-APACHEDS.md)
 
 -------------------------------------------------------------------------------
-## SECTION II. Prepare rbac-abac-sample package
+## SECTION II. Prepare Tomcat for Java EE Security
+
+This sample web app uses Java EE security.
+
+#### 1. Download the fortress realm proxy jar into tomcat/lib folder:
+
+  ```bash
+  wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.1/fortress-realm-proxy-2.0.1.jar -P $TOMCAT_HOME/lib
+  ```
+
+ * Where `$TOMCAT_HOME` points to the execution env.
+
+ Note: The realm proxy enables Tomcat container-managed security functions to call back to fortress.
+
+#### 2. Optional - Prepare tomcat to allow autodeploy of rbac-abac-sample web app:
+
+ ```bash
+ sudo vi /usr/local/tomcat8/conf/tomcat-users.xml
+ ```
+
+#### 3. Optional - Add tomcat user to deploy rbac-abac-sample:
+
+ ```xml
+ <role rolename="manager-script"/>
+ <role rolename="manager-gui"/>
+ <user username="tcmanager" password="m@nager123" roles="manager-script"/>
+ ```
+
+#### 4. Restart tomcat for new settings to take effect.
+
+-------------------------------------------------------------------------------
+## SECTION III. Prepare rbac-abac-sample package
 
 #### 1. Stage the project.
 
@@ -102,37 +133,6 @@
  ```
 
 -------------------------------------------------------------------------------
-## SECTION III. Prepare Tomcat for Java EE Security
-
-This sample web app uses Java EE security.
-
-#### 1. Download the fortress realm proxy jar into tomcat/lib folder:
-
-  ```bash
-  wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.1/fortress-realm-proxy-2.0.1.jar -P $TOMCAT_HOME/lib
-  ```
-
- * Where `$TOMCAT_HOME` points to the execution env.
-
- Note: The realm proxy enables Tomcat container-managed security functions to call back to fortress.
-
-#### 2. Prepare tomcat to allow autodeploy of rbac-abac-sample web app (later on):
-
- ```bash
- sudo vi /usr/local/tomcat8/conf/tomcat-users.xml
- ```
-
-#### 3. Add tomcat user to deploy rbac-abac-sample:
-
- ```xml
- <role rolename="manager-script"/>
- <role rolename="manager-gui"/>
- <user username="tcmanager" password="m@nager123" roles="manager-script"/>
- ```
-
-#### 4. Restart tomcat for new settings to take effect.
-
--------------------------------------------------------------------------------
 ## SECTION IV. Build and deploy rbac-abac-sample
 
 #### 1. Verify the java and maven home env variables are set.
@@ -146,7 +146,16 @@ This sample web app uses Java EE security.
 #### 2. Deploy the sample to Tomcat:
 
 
- a. Verify the Tomcat auto-deploy options are set correctly in the [pom.xml](pom.xml) file:
+ a. Build the sample and load the app's security policy into the backend LDAP server:
+
+  ```maven
+ mvn install -Dload.file
+  ```
+
+  Note: `-Dload.file` automatically loads the [rbac-abac-sample security policy](src/main/resources/rbac-abac-sample-security-policy.xml) data into ldap.
+  This load needs to happen just once for the default test cases to work and may be dropped from future `mvn` commands.
+
+ b. If using autodeploy feature, verify the Tomcat auto-deploy options are set correctly in the [pom.xml](pom.xml) file:
  ```xml
  <plugin>
      <groupId>org.codehaus.mojo</groupId>
@@ -162,25 +171,16 @@ This sample web app uses Java EE security.
  </plugin>
  ```
 
-  b. Automatically deploy to tomcat server:
+ c. Now, automatically deploy to tomcat server:
 
   ```maven
- mvn clean tomcat:deploy -Dload.file
+ mvn clean tomcat:deploy
   ```
 
-  Note: `-Dload.file` automatically loads the [rbac-abac-sample security policy](src/main/resources/rbac-abac-sample-security-policy.xml) data into ldap.
-  This load needs to happen just once for the default test cases to work and may be dropped from future `mvn` commands.
-
-  c. To redeploy sample app:
+ d. To automatically redeploy sample app:
 
   ```maven
  mvn clean tomcat:redeploy
-  ```
-
-  d. For security policy changes, the data load may be run as a separate operation:
-
-  ```maven
- mvn install -Dload.file
   ```
 
  e. To manually deploy app to Tomcat:
