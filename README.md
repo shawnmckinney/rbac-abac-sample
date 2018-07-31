@@ -158,10 +158,10 @@ This sample web app uses Java EE security.
 
 #### 1. Set java and maven home env variables.
 
-#### 2. Run this command from the root package:
+#### 2. Deploy the sample to Tomcat:
 
 
- Tomcat auto-deploy options in [pom.xml](pom.xml) file.
+ Note: The Tomcat auto-deploy options in [pom.xml](pom.xml) file.
  ```xml
  <plugin>
      <groupId>org.codehaus.mojo</groupId>
