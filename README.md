@@ -164,15 +164,15 @@ This sample web app uses Java EE security.
   ```
 
   Note: `-Dload.file` automatically loads the [rbac-abac-sample security policy](src/main/resources/rbac-abac-sample-security-policy.xml) data into ldap.
-  This load needs to happen just once for the default test cases to work and may be dropped from future 'mvn' commands.
+  This load needs to happen just once for the default test cases to work and may be dropped from future `mvn` commands.
 
-  c. To redeploy app:
+  c. To redeploy sample app:
 
   ```maven
  mvn clean tomcat:redeploy
   ```
 
-  d. If something changes in the security policy, it may be run as a separate operation:
+  d. For security policy changes, the data load may be run as a separate operation:
 
   ```maven
  mvn install -Dload.file
