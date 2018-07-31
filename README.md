@@ -158,6 +158,13 @@ This sample web app uses Java EE security.
 
 #### 1. Set java and maven home env variables.
 
+ Verify:
+ ```maven
+ mvn -version
+ ```
+
+ This sample requires Java 8 and Maven 3 to be setup within the execution env.
+
 #### 2. Deploy the sample to Tomcat:
 
 
