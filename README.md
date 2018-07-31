@@ -156,9 +156,8 @@ This sample web app uses Java EE security.
 -------------------------------------------------------------------------------
 ## SECTION IV. Build and deploy rbac-abac-sample
 
-#### 1. Set java and maven home env variables.
+#### 1. Verify the java and maven home env variables are set.
 
- Verify:
  ```maven
  mvn -version
  ```
@@ -168,7 +167,7 @@ This sample web app uses Java EE security.
 #### 2. Deploy the sample to Tomcat:
 
 
- Verify the Tomcat auto-deploy options are set correctly in the [pom.xml](pom.xml) file:
+ a. Verify the Tomcat auto-deploy options are set correctly in the [pom.xml](pom.xml) file:
  ```xml
  <plugin>
      <groupId>org.codehaus.mojo</groupId>
@@ -185,28 +184,28 @@ This sample web app uses Java EE security.
  </plugin>
  ```
 
-  a. Automatically deploy to tomcat server:
+  b. Automatically deploy to tomcat server:
 
   ```maven
  mvn clean tomcat:deploy -Dload.file
   ```
 
-  b. Or to redeploy:
+  c. To redeploy app:
 
   ```maven
  mvn clean tomcat:redeploy -Dload.file
   ```
 
-  c. '-Dload.file' automatically loads the [rbac-abac-sample security policy](src/main/resources/rbac-abac-sample-security-policy.xml) data into ldap.
+  Note: '-Dload.file' automatically loads the [rbac-abac-sample security policy](src/main/resources/rbac-abac-sample-security-policy.xml) data into ldap.
   This load needs to happen just once for the default test cases to work and may be dropped from future 'mvn' commands.
 
-  Or if something changes in the policy, it may be run as a separate operation:
+  d. If something changes in the policy, it may be run as a separate operation:
 
   ```maven
  mvn clean -Dload.file
   ```
 
- d. This web app may be manually deployed to Tomcat.
+ e. This web app may be manually deployed to Tomcat.
 
  ```bash
  cp target/rbac-abac-sample.war $TOMCAT_HOME/webapps
