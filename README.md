@@ -152,7 +152,7 @@ This sample web app uses Java EE security.
  * `-Dload.file` automatically loads the [rbac-abac-sample security policy](src/main/resources/rbac-abac-sample-security-policy.xml) data into ldap.
  * This load needs to happen just once for the default test cases to work and may be dropped from future `mvn` commands.
 
-#### 2. Deploy the sample to Tomcat:
+#### 3. Deploy the sample to Tomcat:
 
  a. If using autodeploy feature, verify the Tomcat auto-deploy options are set correctly in the [pom.xml](pom.xml) file:
  ```xml
