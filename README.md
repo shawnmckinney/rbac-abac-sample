@@ -51,13 +51,21 @@
 
 #### 3. Enable an LDAP server:
 
+ a. Copy the example:
+
  ```bash
- cp src/main/resources/fortress.properties.example fortress.properties
+ cp src/main/resources/fortress.properties.example src/main/resources/fortress.properties
+ ```
+
+ b. Edit the file:
+
+ ```bash
+ vi src/main/resources/fortress.properties
  ```
 
  Pick either Apache Directory or OpenLDAP server:
 
- a. Prepare fortress for ApacheDS usage:
+ c. Prepare fortress for ApacheDS usage:
 
  ```properties
  # This param tells fortress what type of ldap server in use:
@@ -76,7 +84,7 @@
 
  -- Or --
 
- b. Prepare fortress for OpenLDAP usage:
+ d. Prepare fortress for OpenLDAP usage:
 
  ```properties
  # This param tells fortress what type of ldap server in use:
