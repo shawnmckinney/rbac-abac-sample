@@ -31,7 +31,9 @@
 
  a. Download and extract from Github:
 
- [Download ZIP](https://github.com/shawnmckinney/rbac-abac-sample/archive/master.zip)
+ ```bash
+ wget https://github.com/shawnmckinney/rbac-abac-sample/archive/master.zip
+ ```
 
  Or
 
@@ -158,23 +160,8 @@ This sample web app uses Java EE security.
 
 #### 2. Run this command from the root package:
 
-  a. Deploy to tomcat server:
 
-  ```maven
- mvn clean tomcat:deploy -Dload.file
-  ```
-
-  b. Or if already deployed:
-
-  ```maven
- mvn clean tomcat:redeploy -Dload.file
-  ```
-
-   -Dload.file tells maven to automatically load the rbac-abac-sample security policy into ldap.  Since the load needs to happen just once, you may drop the arg from future ops:
-  ```maven
- mvn tomcat:redeploy
-  ```
- **Note**: if problem  with tomcat auto-deploy, manually deploy rbac-abac-sample.war to webapps or change connection info used during tomcat:deploy in [pom.xml](pom.xml).
+ Tomcat auto-deploy options in [pom.xml](pom.xml) file.
  ```xml
  <plugin>
      <groupId>org.codehaus.mojo</groupId>
@@ -191,12 +178,37 @@ This sample web app uses Java EE security.
  </plugin>
  ```
 
- c. Or simply copy .war into Tomcat's webapps folder.
+  a. Automatically deploy to tomcat server:
+
+  ```maven
+ mvn clean tomcat:deploy -Dload.file
+  ```
+
+  b. Or to redeploy:
+
+  ```maven
+ mvn clean tomcat:redeploy -Dload.file
+  ```
+
+  c. '-Dload.file' automatically loads the [rbac-abac-sample security policy](src/main/resources/rbac-abac-sample-security-policy.xml) data into ldap.
+  This load needs to happen just once for the default test cases to work and may be dropped from future 'mvn' commands.
+
+  Or if something changes in the policy, it may be run as a separate operation:
+
+  ```maven
+ mvn clean -Dload.file
+  ```
+
+ d. This web app may be manually deployed to Tomcat.
+
+ ```bash
+ cp target/rbac-abac-sample.war $TOMCAT_HOME/webapps
+ ```
 
 -------------------------------------------------------------------------------
 ## SECTION V. Understand the security policy
 
-To gain full understanding, check out the file used to load it into the LDAP directory: ![rbac-abac-sample security policy](src/main/resources/rbac-abac-sample-security-policy.xml).
+To gain full understanding, check out the file used to load it into the LDAP directory: [rbac-abac-sample security policy](src/main/resources/rbac-abac-sample-security-policy.xml).
 
 App comprised of three pages, each has buttons and links that are guarded by permissions.  The permissions are granted to a particular user via their role activations.
 
