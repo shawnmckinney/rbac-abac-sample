@@ -168,7 +168,7 @@ This sample web app uses Java EE security.
 #### 2. Deploy the sample to Tomcat:
 
 
- Note: The Tomcat auto-deploy options in [pom.xml](pom.xml) file.
+ Verify the Tomcat auto-deploy options are set correctly in the [pom.xml](pom.xml) file:
  ```xml
  <plugin>
      <groupId>org.codehaus.mojo</groupId>
