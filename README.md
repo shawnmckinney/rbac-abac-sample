@@ -49,7 +49,6 @@ This sample web app uses Java EE security.
 
  ```xml
  <role rolename="manager-script"/>
- <role rolename="manager-gui"/>
  <user username="tcmanager" password="m@nager123" roles="manager-script"/>
  ```
 
