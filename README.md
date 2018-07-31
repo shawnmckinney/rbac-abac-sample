@@ -52,7 +52,7 @@
 #### 3. Enable an LDAP server:
 
  ```bash
- cp src/main/resources/fortress.properties.example to fortress.properties
+ cp src/main/resources/fortress.properties.example fortress.properties
  ```
 
  Pick either Apache Directory or OpenLDAP server:
