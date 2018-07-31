@@ -142,19 +142,19 @@ This sample web app uses Java EE security.
 
  This sample requires Java 8 and Maven 3 to be setup within the execution env.
 
-#### 2. Deploy the sample to Tomcat:
-
-
- a. Build the sample and load the app's security policy into the backend LDAP server:
+#### 2. Build the sample and load test data:
 
   ```maven
  mvn install -Dload.file
   ```
 
-  Note: `-Dload.file` automatically loads the [rbac-abac-sample security policy](src/main/resources/rbac-abac-sample-security-policy.xml) data into ldap.
-  This load needs to happen just once for the default test cases to work and may be dropped from future `mvn` commands.
+ Build Notes:
+ * `-Dload.file` automatically loads the [rbac-abac-sample security policy](src/main/resources/rbac-abac-sample-security-policy.xml) data into ldap.
+ * This load needs to happen just once for the default test cases to work and may be dropped from future `mvn` commands.
 
- b. If using autodeploy feature, verify the Tomcat auto-deploy options are set correctly in the [pom.xml](pom.xml) file:
+#### 2. Deploy the sample to Tomcat:
+
+ a. If using autodeploy feature, verify the Tomcat auto-deploy options are set correctly in the [pom.xml](pom.xml) file:
  ```xml
  <plugin>
      <groupId>org.codehaus.mojo</groupId>
@@ -170,19 +170,19 @@ This sample web app uses Java EE security.
  </plugin>
  ```
 
- c. Now, automatically deploy to tomcat server:
+ b. Now, automatically deploy to tomcat server:
 
   ```maven
  mvn clean tomcat:deploy
   ```
 
- d. To automatically redeploy sample app:
+ c. To automatically redeploy sample app:
 
   ```maven
  mvn clean tomcat:redeploy
   ```
 
- e. To manually deploy app to Tomcat:
+ d. To manually deploy app to Tomcat:
 
  ```bash
  cp target/rbac-abac-sample.war $TOMCAT_HOME/webapps
