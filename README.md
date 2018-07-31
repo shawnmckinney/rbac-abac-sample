@@ -35,7 +35,7 @@
  wget https://github.com/shawnmckinney/rbac-abac-sample/archive/master.zip
  ```
 
- Or
+ -- Or --
 
  b. Or `git clone` locally:
 
@@ -104,9 +104,11 @@ This sample web app uses Java EE security.
   wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.1/fortress-realm-proxy-2.0.1.jar -P $TOMCAT_HOME/lib
   ```
 
-  where *TOMCAT_HOME* matches your target env.
+ * Where `$TOMCAT_HOME` points to the execution env.
 
-#### 2. Prepare tomcat to allow autodeploy of rbac-abac-sample web app:
+ Note: The realm proxy enables Tomcat container-managed security functions to call back to fortress.
+
+#### 2. Prepare tomcat to allow autodeploy of rbac-abac-sample web app (later on):
 
  ```bash
  sudo vi /usr/local/tomcat8/conf/tomcat-users.xml
@@ -121,11 +123,6 @@ This sample web app uses Java EE security.
  ```
 
 #### 4. Restart tomcat for new settings to take effect.
-
- Note: The proxy is a shim that uses a [URLClassLoader](http://docs.oracle.com/javase/7/docs/api/java/net/URLClassLoader.html) to reach its implementation libs.  It prevents
- the realm impl libs, pulled in as dependency to web app, from interfering with the container’s system classpath thus providing an error free deployment process free from
- classloader issues.  The proxy offers the flexibility for each web app to determine its own version/type of security realm to use, satisfying a variety of requirements
- related to web hosting and multitenancy.
 
 -------------------------------------------------------------------------------
 ## SECTION IV. Build and deploy rbac-abac-sample
@@ -178,11 +175,13 @@ This sample web app uses Java EE security.
  mvn install -Dload.file
   ```
 
- e. This web app may be manually deployed to Tomcat.
+ e. To manually deploy app to Tomcat:
 
  ```bash
  cp target/rbac-abac-sample.war $TOMCAT_HOME/webapps
  ```
+
+ * Where `$TOMCAT_HOME` points to the execution env.
 
 -------------------------------------------------------------------------------
 ## SECTION V. Understand the security policy
@@ -298,7 +297,7 @@ App comprised of three pages, each has buttons and links that are guarded by per
 
  How does this work?  Have a look at some code...
 
- Excerpt from ![WicketSampleBasePage.java](src/main/java/org/rbacabac/WicketSampleBasePage.java):
+ Excerpt from [WicketSampleBasePage.java](src/main/java/org/rbacabac/WicketSampleBasePage.java):
 
  ```java
   Properties props = new Properties(  );
