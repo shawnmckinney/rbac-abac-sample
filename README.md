@@ -35,21 +35,21 @@
 
  Or
 
- b. Or clone locally:
+ b. Or 'git clone' locally:
 
- ```
+ ```git
  git clone https://github.com/shawnmckinney/rbac-abac-sample.git
  ```
 
 #### 2. Change directory into it:
 
- ```
+ ```bash
  cd rbac-abac-sample
  ```
 
 #### 3. Enable an LDAP server:
 
- ```
+ ```bash
  cp src/main/resources/fortress.properties.example to fortress.properties
  ```
 
@@ -124,7 +124,7 @@ This sample web app uses Java EE security.
 
 #### 1. Download the fortress realm proxy jar into tomcat/lib folder:
 
-  ```
+  ```bash
   wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.1/fortress-realm-proxy-2.0.1.jar -P $TOMCAT_HOME/lib
   ```
 
@@ -132,13 +132,13 @@ This sample web app uses Java EE security.
 
 #### 2. Prepare tomcat to allow autodeploy of rbac-abac-sample web app:
 
- ```
+ ```bash
  sudo vi /usr/local/tomcat8/conf/tomcat-users.xml
  ```
 
 #### 3. Add tomcat user to deploy rbac-abac-sample:
 
- ```
+ ```xml
  <role rolename="manager-script"/>
  <role rolename="manager-gui"/>
  <user username="tcmanager" password="m@nager123" roles="manager-script"/>
@@ -175,7 +175,7 @@ This sample web app uses Java EE security.
  mvn tomcat:redeploy
   ```
  **Note**: if problem  with tomcat auto-deploy, manually deploy rbac-abac-sample.war to webapps or change connection info used during tomcat:deploy in [pom.xml](pom.xml).
- ```
+ ```xml
  <plugin>
      <groupId>org.codehaus.mojo</groupId>
      <artifactId>tomcat-maven-plugin</artifactId>
@@ -293,7 +293,7 @@ App comprised of three pages, each has buttons and links that are guarded by per
 
  Run the selenium automated test:
 
- ```mvn
+ ```maven
  mvn test -Dtest=RbacAbacSampleSeleniumITCase
  ```
 
