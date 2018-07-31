@@ -37,7 +37,7 @@
 
  Or
 
- b. Or 'git clone' locally:
+ b. Or `git clone` locally:
 
  ```git
  git clone https://github.com/shawnmckinney/rbac-abac-sample.git
@@ -195,7 +195,7 @@ This sample web app uses Java EE security.
  mvn clean tomcat:redeploy -Dload.file
   ```
 
-  Note: '-Dload.file' automatically loads the [rbac-abac-sample security policy](src/main/resources/rbac-abac-sample-security-policy.xml) data into ldap.
+  Note: `-Dload.file` automatically loads the [rbac-abac-sample security policy](src/main/resources/rbac-abac-sample-security-policy.xml) data into ldap.
   This load needs to happen just once for the default test cases to work and may be dropped from future 'mvn' commands.
 
   d. If something changes in the policy, it may be run as a separate operation:
