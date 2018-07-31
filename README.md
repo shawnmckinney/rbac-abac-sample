@@ -177,7 +177,6 @@ This sample web app uses Java EE security.
      ...
          <url>http://localhost:8080/manager/text</url>
          <path>/${project.artifactId}</path>
-         <!-- Warning the tomcat manager creds here are for deploying into a demo environment only. -->
          <username>tcmanager</username>
          <password>m@nager123</password>
      </configuration>
