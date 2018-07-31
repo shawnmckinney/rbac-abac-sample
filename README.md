@@ -163,19 +163,19 @@ This sample web app uses Java EE security.
  mvn clean tomcat:deploy -Dload.file
   ```
 
-  c. To redeploy app:
-
-  ```maven
- mvn clean tomcat:redeploy -Dload.file
-  ```
-
   Note: `-Dload.file` automatically loads the [rbac-abac-sample security policy](src/main/resources/rbac-abac-sample-security-policy.xml) data into ldap.
   This load needs to happen just once for the default test cases to work and may be dropped from future 'mvn' commands.
 
-  d. If something changes in the policy, it may be run as a separate operation:
+  c. To redeploy app:
 
   ```maven
- mvn clean -Dload.file
+ mvn clean tomcat:redeploy
+  ```
+
+  d. If something changes in the security policy, it may be run as a separate operation:
+
+  ```maven
+ mvn install -Dload.file
   ```
 
  e. This web app may be manually deployed to Tomcat.
