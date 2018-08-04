@@ -9,9 +9,7 @@ import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.realm.J2eePolicyMgr;
 import org.apache.directory.fortress.web.control.SecUtils;
 import org.apache.directory.fortress.core.model.Session;
-import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.web.control.FtBookmarkablePageLink;
-import org.apache.directory.fortress.web.control.FtIndicatingAjaxButton;
 import org.apache.directory.fortress.web.control.WicketSession;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
@@ -27,7 +25,6 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.List;
 import java.util.Properties;
 
 /**
@@ -95,27 +92,6 @@ public abstract class WicketSampleBasePage extends WebPage
             HttpServletRequest servletReq = ( HttpServletRequest ) getRequest().getContainerRequest();
             // RBAC Security Processing:
             Principal principal = servletReq.getUserPrincipal();
-
-            // Is this a Java EE secured page && has the User successfully authenticated already?
-/*
-            boolean isSecured = principal != null;
-            if ( isSecured )
-            {
-                if ( !SecUtils.isLoggedIn( this ) )
-                {
-                    try
-                    {
-                        String szPrincipal = principal.toString();
-                        // Pull the RBAC session from the realm and assert intno the Web app's session along with user's
-                        SecUtils.initializeSession( this, j2eePolicyMgr, accessMgr, szPrincipal );
-                    }
-                    catch ( org.apache.directory.fortress.core.SecurityException se )
-                    {
-                        throw new RuntimeException( se );
-                    }
-                }
-            }
-*/
         }
     }
 
@@ -127,17 +103,6 @@ public abstract class WicketSampleBasePage extends WebPage
         return principal.getName();
     }
 
-/*
-    protected String getUserid()
-    {
-        String userid;
-        WicketSession session = ( WicketSession ) this.getSession();
-        Session ftSess = session.getSession();
-        userid = ftSess.getUserId();
-        return userid;
-    }
-
-*/
     protected String getBranchId()
     {
         return (String)( WicketSession.get() ).getAttribute( "branchId");
