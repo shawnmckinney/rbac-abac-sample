@@ -76,7 +76,7 @@ public abstract class WicketSampleBasePage extends WebPage
             branchField = new TextField("branch", Model.of(""));
             add(branchField);
 
-            //add( new FtIndicatingAjaxButton( "branch.login" )
+            // In this sample, any authorized app use (got this far)r may attempt to login to a branch:
             add( new IndicatingAjaxButton( "branch.login" )
             {
                 @Override
