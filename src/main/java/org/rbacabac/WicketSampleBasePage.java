@@ -55,7 +55,7 @@ public abstract class WicketSampleBasePage extends WebPage
             }
         };
         add( actionLink );
-        // Add FtBookmarkablePageLink will show link to user if they have the permission:
+        // These are 'secured' buttons meaning user must have..
         add( new FtBookmarkablePageLink( "tellerspage.link", TellersPage.class ) );
         add( new FtBookmarkablePageLink( "washerspage.link", WashersPage.class ) );
         add( new UsersForm( "usersForm" ) );
