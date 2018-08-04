@@ -88,10 +88,6 @@ public abstract class WicketSampleBasePage extends WebPage
                     setResponsePage( HomePage.class );
                 }
             } );
-
-            HttpServletRequest servletReq = ( HttpServletRequest ) getRequest().getContainerRequest();
-            // RBAC Security Processing:
-            Principal principal = servletReq.getUserPrincipal();
         }
     }
 
