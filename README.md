@@ -3,7 +3,7 @@
  * This document demonstrates how to build and deploy the fortress rbac with abac sample.
  * The intent is to demonstrate using attributes to control role activation within an Apache Wicket Web app.
  * For more info about the idea: [Towards an Attribute-Based Role-Based Access Control System](https://iamfortress.net/2018/07/07/towards-an-attribute-based-role-based-access-control-system/)
- * Since this was first published, the Fortress APIs have changed wrt ABAC.  Once the next release is out, fortress 2.0.2, about a week or so, changes will be reflected here.
+ * Since this sample was first published, the Fortress APIs have changed (matured) wrt ABAC.  Once the next release is out, fortress 2.0.2, changes will be reflected here.
 
 -------------------------------------------------------------------------------
 ## Table of Contents
