@@ -3,7 +3,6 @@
  * This document demonstrates how to build and deploy the fortress rbac with abac sample.
  * The intent is to demonstrate using attributes to control role activation within an Apache Wicket Web app.
  * For more info about the idea: [Towards an Attribute-Based Role-Based Access Control System](https://iamfortress.net/2018/07/07/towards-an-attribute-based-role-based-access-control-system/)
- * Since this sample was first published, the Fortress APIs have changed (matured) wrt ABAC.  Once the next release is out, fortress 2.0.2, changes will be reflected here.
 
 -------------------------------------------------------------------------------
 ## Table of Contents
@@ -14,7 +13,7 @@
  * SECTION 5. Understand the security policy
  * SECTION 6. Manually Test the RBAC with ABAC sample
  * SECTION 7. Automatically Test the RBAC with ABAC sample (using Selenium)
- * SECTION 8. Under the Covers
+ * SECTION 8. Under the Covers (Learn how it works here)
 
 -------------------------------------------------------------------------------
 ## SECTION I. Prerequisites
@@ -33,7 +32,7 @@ This sample web app uses Java EE security.
 #### 1. Download the fortress realm proxy jar into tomcat/lib folder:
 
   ```bash
-  wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.1/fortress-realm-proxy-2.0.1.jar -P $TOMCAT_HOME/lib
+  wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.2/fortress-realm-proxy-2.0.2.jar -P $TOMCAT_HOME/lib
   ```
 
  * Where `$TOMCAT_HOME` points to the execution env.
@@ -299,33 +298,49 @@ App comprised of three pages, each has buttons and links that are guarded by per
  * *This test will log in as each user, perform positive and negative test cases.*
  * *Requires Firefox on target machine.*
 
-
 -------------------------------------------------------------------------------
 ## SECTION VIII. Under the Covers
 
  How does this work?  Have a look at some code...
 
- Excerpt from [WicketSampleBasePage.java](src/main/java/org/rbacabac/WicketSampleBasePage.java):
+ Paraphrased from [WicketSampleBasePage.java](src/main/java/org/rbacabac/WicketSampleBasePage.java):
 
  ```java
-  Properties props = new Properties(  );
-  props.setProperty( "locale", branchId );
+ // Nothing new here:
   User user = new User(userId);
-  user.addProperties( props );
-  Session session = null;
+
+  // This is new:
+  RoleConstraint constraint = new RoleConstraint( );
+
+  // In practice we're not gonna pass hard-coded key-values in here, but you get the idea:
+  constraint.setKey( "locale" );
+  constraint.setValue( "north" );
+
+  // This is just boilerplate goop:
+  List<RoleConstraint> constraints = new ArrayList();
+  constraints.add( constraint );
+
   try
   {
-      session = accessMgr.createSession( user, true );
-  }
-  catch (SecurityException se)
-  {
-      // log or throw
+      // Now, create the RBAC session with an ABAC constraint, locale=north, asserted:
+      Session session = accessMgr.createSession( user, constraints );
+      ...
   }
  ```
 
  Pushing the **locale** attribute into the User's RBAC session the runtime will match that instance data with their stored policy.
 
- ![Image4](images/CurlyProps.png "View Curly Data")
+ ![Image4](images/CurlyUser.png "View Curly Data")
+ *Notice that this user has been assigned both Teller and Washer, via **ftRA** attribute, and that another attribute, **ftRC**, constrains where it can be activated.*
 
- * *Notice that this user has been assigned both Teller and Washer, via **ftRA** attribute, and that another attribute, **ftProps**, constrains where it can be activated.*
- * *This works with any kind of instance data, e.g. account, organization, etc.*
+### How the ABAC algorithm works:
+ * When the runtime iterates over assigned roles (ftRA), trying to activate them one-by-one, it matches the constraint pushed in, e.g. locale=north, with its associated role constraint (ftRC).
+ * If it finds a match, the role can be activated into the session, otherwise not.
+
+### When does it get executed:
+ * During the [createSession](https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AccessMgr.html#createSession-org.apache.directory.fortress.core.model.User-boolean-) call, there's a role activation phase, where all of the constraints are applied.
+ * Applying constraints is not a new concept with Fortress, check out, [What Are Temporal Constraints?](https://iamfortress.net/2015/06/11/what-are-temporal-constraints/), for more info.
+ * Constraints are enabled via [fortress' configuration subsystem](https://github.com/apache/directory-fortress-core/blob/master/README-CONFIG.md).  Currently ABAC and temporal constraints are turned on by default.
+
+### One more thing:
+ * ABAC constraints work with any kind of instance data, e.g. account, organization, etc.  Let your imagination set the boundaries.

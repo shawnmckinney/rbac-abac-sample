@@ -5,6 +5,7 @@ package org.rbacabac;
 
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.model.RoleConstraint;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.realm.J2eePolicyMgr;
 import org.apache.directory.fortress.web.control.SecUtils;
@@ -25,7 +26,8 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.Properties;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Base class for RbacAbac Sample Project.
@@ -35,7 +37,7 @@ import java.util.Properties;
  */
 public abstract class WicketSampleBasePage extends WebPage
 {
-    // Fortress spring beans injected here:
+    // The access management APIs:
     @SpringBean
     private AccessMgr accessMgr;
     @SpringBean
@@ -60,7 +62,7 @@ public abstract class WicketSampleBasePage extends WebPage
         add( new FtBookmarkablePageLink( "washerspage.link", WashersPage.class ) );
         add( new UsersForm( "usersForm" ) );
         add( new Label( "footer", "This is free and unencumbered software released into the public domain." ) );
-        add( new Label( GlobalIds.INFO_FIELD ));
+        add( new Label( "infoField" ));
     }
 
     /**
@@ -90,7 +92,6 @@ public abstract class WicketSampleBasePage extends WebPage
             } );
         }
     }
-
 
     protected String getUserid()
     {
@@ -130,14 +131,17 @@ public abstract class WicketSampleBasePage extends WebPage
         synchronized ( ( WicketSession ) WicketSession.get() )
         {
             LOG.info( "Session user: " + userId );
-            Properties props = new Properties(  );
-            props.setProperty( "locale", branchId );
             User user = new User(userId);
-            user.addProperties( props );
-            Session session = null;
+            RoleConstraint constraint = new RoleConstraint();
+            constraint.setKey( "locale" );
+            constraint.setValue( branchId );
+            List<RoleConstraint> constraints = new ArrayList();
+            constraints.add( constraint );
+            Session session;
             try
             {
-                session = accessMgr.createSession( user, true );
+                session = accessMgr.createSession( user, constraints, true );
+
             }
             catch (SecurityException se)
             {
