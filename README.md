@@ -13,7 +13,7 @@
  * SECTION 5. Understand the security policy
  * SECTION 6. Manually Test the RBAC with ABAC sample
  * SECTION 7. Automatically Test the RBAC with ABAC sample (using Selenium)
- * SECTION 8. Under the Covers (Learn how it works here)
+ * SECTION 8. Under the Hood (Learn how it works here)
 
 -------------------------------------------------------------------------------
 ## SECTION I. Prerequisites
@@ -299,7 +299,7 @@ App comprised of three pages, each has buttons and links that are guarded by per
  * *Requires Firefox on target machine.*
 
 -------------------------------------------------------------------------------
-## SECTION VIII. Under the Covers
+## SECTION VIII. Under the Hood
 
  How does this work?  Have a look at some code...
 
