@@ -9,11 +9,12 @@
  * SECTION 1. Prerequisites
  * SECTION 2. Prepare Tomcat for Java EE Security
  * SECTION 3. Prepare rbac-abac-sample package
- * SECTION 4. Build and deploy rbac-abac-sample
- * SECTION 5. Understand the security policy
- * SECTION 6. Manually Test the RBAC with ABAC sample
- * SECTION 7. Automatically Test the RBAC with ABAC sample (using Selenium)
- * SECTION 8. Under the Hood (Learn how it works here)
+ * SECTION 4. Prepare Tomcat for Java EE Security
+ * SECTION 5. Build and deploy rbac-abac-sample
+ * SECTION 6. Understand the security policy
+ * SECTION 7. Manually Test the RBAC with ABAC sample
+ * SECTION 8. Automatically Test the RBAC with ABAC sample (using Selenium)
+ * SECTION 9. Under the Hood (Learn how it works here)
 
 -------------------------------------------------------------------------------
 ## SECTION I. Prerequisites
@@ -132,7 +133,41 @@ This sample web app uses Java EE security.
  ```
 
 -------------------------------------------------------------------------------
-## SECTION IV. Build and deploy rbac-abac-sample
+## SECTION IV. Prepare Tomcat for Java EE Security
+
+This sample web app uses Java EE security.
+
+#### 1. Download the fortress realm proxy jar into tomcat/lib folder:
+
+  ```
+  wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.2/fortress-realm-proxy-2.0.2.jar -P $TOMCAT_HOME/lib
+  ```
+
+  where *TOMCAT_HOME* matches your target env.
+
+#### 2. Prepare tomcat to allow autodeploy of rbac-abac-sample web app:
+
+ ```
+ sudo vi /usr/local/tomcat8/conf/tomcat-users.xml
+ ```
+
+#### 3. Add tomcat user to deploy role-engineering-sample:
+
+ ```
+ <role rolename="manager-script"/>
+ <role rolename="manager-gui"/>
+ <user username="tcmanager" password="m@nager123" roles="manager-script"/>
+ ```
+
+#### 4. Restart tomcat for new settings to take effect.
+
+ Note: The proxy is a shim that uses a [URLClassLoader](http://docs.oracle.com/javase/7/docs/api/java/net/URLClassLoader.html) to reach its implementation libs.  It prevents
+ the realm impl libs, pulled in as dependency to web app, from interfering with the container’s system classpath thus providing an error free deployment process free from
+ classloader issues.  The proxy offers the flexibility for each web app to determine its own version/type of security realm to use, satisfying a variety of requirements
+ related to web hosting and multitenancy.
+
+-------------------------------------------------------------------------------
+## SECTION V. Build and deploy rbac-abac-sample
 
 #### 1. Verify the java and maven home env variables are set.
 
@@ -191,7 +226,7 @@ This sample web app uses Java EE security.
  * Where `$TOMCAT_HOME` points to the execution env.
 
 -------------------------------------------------------------------------------
-## SECTION V. Understand the security policy
+## SECTION VI. Understand the security policy
 
 To gain full understanding, check out the file used to load it into the LDAP directory: [rbac-abac-sample security policy](src/main/resources/rbac-abac-sample-security-policy.xml).
 
@@ -248,7 +283,7 @@ App comprised of three pages, each has buttons and links that are guarded by per
 | Washers    | false           | false              | false            | true          | true          | true         |
 
 -------------------------------------------------------------------------------
-## SECTION VI. Manually Test the RBAC with ABAC sample
+## SECTION VII. Manually Test the RBAC with ABAC sample
 
 #### 1. Open link to [http://localhost:8080/rbac-abac-sample](http://localhost:8080/rbac-abac-sample)
 
