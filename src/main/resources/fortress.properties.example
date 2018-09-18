@@ -2,18 +2,20 @@
 # This is free and unencumbered software released into the public domain.
 #
 
-# This param tells fortress what type of ldap server in use:
-ldap.server.type=apacheds
-
 # ldap host name
 host=localhost
 
-# if ApacheDS is listening on
+# If ApacheDS:
+# This param tells fortress what type of ldap server in use:
+ldap.server.type=apacheds
 port=10389
-
-# If ApacheDS, these credentials are used for read/write to fortress DIT
 admin.user=uid=admin,ou=system
 admin.pw=secret
+
+# if OpenLDAP
+#ldap.server.type=openldap
+#port=389
+#admin.user=cn=manager,dc=example,dc=com
 
 # This is min/max settings for admin pool connections:
 min.admin.conn=1
