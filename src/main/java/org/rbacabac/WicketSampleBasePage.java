@@ -82,7 +82,7 @@ public abstract class WicketSampleBasePage extends WebPage
             add( new IndicatingAjaxButton( "branch.login" )
             {
                 @Override
-                protected void onSubmit(AjaxRequestTarget target, Form form)
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     String branch = (String)branchField.getDefaultModelObject();
                     initializeSession( this, getUserid(), branch );

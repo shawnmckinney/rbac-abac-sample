@@ -36,7 +36,7 @@ public class TellersPage extends WicketSampleBasePage
             add( new FtIndicatingAjaxButton( "account.deposit" )
             {
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     logIt( target, "Account, Deposit Pressed" );
                 }
@@ -45,7 +45,7 @@ public class TellersPage extends WicketSampleBasePage
             add( new FtIndicatingAjaxButton( "account.withdrawal" )
             {
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     logIt( target, "Account, Withdrawal Pressed" );
                 }
@@ -54,7 +54,7 @@ public class TellersPage extends WicketSampleBasePage
             add( new FtIndicatingAjaxButton( "account.inquiry" )
             {
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     logIt( target, "Account, Inquiry Pressed" );
                 }

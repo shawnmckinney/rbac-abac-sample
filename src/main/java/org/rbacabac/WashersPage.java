@@ -36,7 +36,7 @@ public class WashersPage extends WicketSampleBasePage
             add( new FtIndicatingAjaxButton( "currency.soak" )
             {
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     logIt( target, "Currency, Soak Pressed" );
                 }
@@ -45,7 +45,7 @@ public class WashersPage extends WicketSampleBasePage
             add( new FtIndicatingAjaxButton( "currency.rinse" )
             {
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     logIt( target, "Currency, Rinse Pressed" );
                 }
@@ -54,7 +54,7 @@ public class WashersPage extends WicketSampleBasePage
             add( new FtIndicatingAjaxButton( "currency.dry" )
             {
                 @Override
-                protected void onSubmit( AjaxRequestTarget target, Form form )
+                protected void onSubmit( AjaxRequestTarget target )
                 {
                     logIt( target, "Currency, Dry Pressed" );
                 }
