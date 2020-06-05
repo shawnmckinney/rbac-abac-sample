@@ -34,7 +34,6 @@
     </developers>
 
     <properties>
-        <fortress.version>2.0.5</fortress.version>
         <ant.version>1.9.7</ant.version>
         <version.junit>4.12</version.junit>
         <javadoc.version>2.9.1</javadoc.version>
@@ -43,11 +42,11 @@
 
     <dependencies>
 
-        <!--  FORTRESS Web pulls in its Core and Realm plus Wicket, Spring, log4j and some others -->
+        <!--  Apache Fortress Web pulls in its Core and Realm libs, plus Apache Wicket, Spring, jaxb and some others -->
         <dependency>
             <groupId>org.apache.directory.fortress</groupId>
             <artifactId>fortress-web</artifactId>
-            <version>${fortress.version}</version>
+            <version>${project.version}</version>
             <classifier>classes</classifier>
         </dependency>
 
