@@ -293,9 +293,9 @@ App comprised of three pages, each has buttons and links that are guarded by per
 
  Run the selenium automated test:
 
- ```maven
- mvn test -Dtest=RbacAbacSampleSeleniumITCase
- ```
+```maven
+mvn test -Dtest=RbacAbacSampleSeleniumITCase
+```
 
  Selenium Test Notes:
  * *This test will log in as each user, perform positive and negative test cases.*
