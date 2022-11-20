@@ -2,7 +2,9 @@
 
  * This document demonstrates how to build and deploy the fortress rbac with abac sample.
  * The intent is to demonstrate using attributes to control role activation within an Apache Wicket Web app.
- * For more info about the idea: [Towards an Attribute-Based Role-Based Access Control System](https://iamfortress.net/2018/07/07/towards-an-attribute-based-role-based-access-control-system/)
+ * For more info about the idea: 
+   - [RBAC-ABAC Sample Wiki](https://github.com/shawnmckinney/rbac-abac-sample/wiki) 
+   - [Towards an Attribute-Based Role-Based Access Control System](https://iamfortress.net/2018/07/07/towards-an-attribute-based-role-based-access-control-system/)
 
 -------------------------------------------------------------------------------
 ## Table of Contents
