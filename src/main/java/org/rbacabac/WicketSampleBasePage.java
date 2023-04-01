@@ -1,5 +1,5 @@
 /*
- * This is free and unencumbered software released into the public domain.
+ * © 2023 iamfortress.net
  */
 package org.rbacabac;
 
@@ -62,7 +62,7 @@ public abstract class WicketSampleBasePage extends WebPage
         add( new FtBookmarkablePageLink( "tellerspage.link", TellersPage.class ) );
         add( new FtBookmarkablePageLink( "washerspage.link", WashersPage.class ) );
         add( new UsersForm( "usersForm" ) );
-        add( new Label( "footer", "This is free and unencumbered software released into the public domain." ) );
+        add( new Label( "footer", "© 2023 iamfortress.net" ) );
         add( new Label( "infoField" ));
     }
 

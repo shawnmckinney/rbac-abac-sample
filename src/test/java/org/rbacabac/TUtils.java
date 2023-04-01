@@ -1,9 +1,7 @@
 /*
- * Copyright (c) 2009-2013, JoshuaTree. All Rights Reserved.
+ * © 2023 iamfortress.net
  */
-
 package org.rbacabac;
-
 
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.apache.directory.fortress.core.GlobalIds;
-
 
 /**
  * Description of the Class
