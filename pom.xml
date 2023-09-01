@@ -10,7 +10,7 @@
     <description>Sample Web App combining RBAC and ABAC.</description>
     <groupId>net.iamfortress</groupId>
     <artifactId>rbac-abac-sample</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0</version>
     <packaging>war</packaging>
 
     <licenses>
