@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ © 2023 iamfortress.net
+  ~ © 2025 iamfortress.net
   -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -10,7 +10,7 @@
     <description>Sample Web App combining RBAC and ABAC.</description>
     <groupId>net.iamfortress</groupId>
     <artifactId>rbac-abac-sample</artifactId>
-    <version>3.0.0</version>
+    <version>3.0.1</version>
     <packaging>war</packaging>
 
     <licenses>
@@ -71,7 +71,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.1.1</version>
+            <version>4.33.0</version>
             <scope>test</scope>
         </dependency>
 
@@ -79,7 +79,7 @@
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>5.1.1</version>
+            <version>6.1.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -208,7 +208,7 @@
                 <version>${javadoc.version}</version>
                 <configuration>
                     <stylesheet>java</stylesheet>
-                    <bottom>&lt;small&gt;© 2023 iamfortress.net
+                    <bottom>&lt;small&gt;© 2025 iamfortress.net
                         Generated ${maven.build.timestamp}.&lt;/small&gt;</bottom>
                     <overview>src/main/javadoc/overview.html</overview>
                     <docfilessubdirs>true</docfilessubdirs>
